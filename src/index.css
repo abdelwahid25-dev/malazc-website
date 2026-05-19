@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00a651; /* Logo Green */
+  --color-primary-hover: #008f45;
+  --color-secondary: #1e3a8a; /* Logo Blue */
+  --color-secondary-hover: #172b6b;
+  --color-accent: #f59e0b; /* Orange/Gold */
+  --color-accent-hover: #d97706;
+  --color-bg-light: #f9fafb; /* Light Gray */
+
+  --font-arabic: "Cairo", sans-serif;
+  --font-english: "Inter", sans-serif;
+
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 3rem;
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@utility glass-dark {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility gradient-primary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html[lang="ar"] {
+  font-family: var(--font-arabic);
+  direction: rtl;
+}
+
+html[lang="en"] {
+  font-family: var(--font-english);
+  direction: ltr;
+}
+
+body {
+  background-color: var(--color-bg-light);
+  color: #1f2937;
+  -webkit-font-smoothing: antialiased;
+}
