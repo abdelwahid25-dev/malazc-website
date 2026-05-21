@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import {
@@ -16,6 +16,41 @@ import {
   Award,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+
+function TestimonialRotator() {
+  const testimonials = [
+    {
+      quote: "Outstanding service — delivered on time and beyond expectations.",
+      author: "Aisha Al-Farouq, CEO",
+    },
+    {
+      quote: "A creative partner who truly understands our needs.",
+      author: "John Smith, CTO",
+    },
+    {
+      quote: "Highly recommended for complex digital and physical projects.",
+      author: "Sara Khan, Operations",
+    },
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setIndex((i) => (i + 1) % testimonials.length), 4500);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <div className="testimonial-card">
+        <motion.blockquote key={index} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} className="text-lg text-slate-700 italic mb-4">
+          “{testimonials[index].quote}”
+        </motion.blockquote>
+        <div className="text-sm font-bold text-slate-900">{testimonials[index].author}</div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Home() {
   const { t, language } = useLanguage();
@@ -86,9 +121,20 @@ export default function Home() {
           >
             <h1 className="text-4xl md:text-6xl font-bold text-slate-700 leading-[1.2] mb-6 tracking-tight">
               {t("heroHeadline").split("–")[0]}
-              <span className="block mt-2 text-primary font-bold">
+              <motion.span
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: "easeOut" }}
+                className="block mt-2 hero-gradient font-bold"
+              >
                 {t("heroHeadline").split("–")[1]?.trim() || t("companyName")}
-              </span>
+              </motion.span>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "84px" }}
+                transition={{ duration: 0.9, delay: 0.25, ease: "easeOut" }}
+                className="h-1 bg-primary rounded-full mt-4 mx-auto lg:mx-0"
+              />
             </h1>
             <p className="text-lg md:text-xl text-slate-500 mb-10 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {t("homeSubheadline")}
@@ -96,7 +142,7 @@ export default function Home() {
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
               <Link
                 to="/contact"
-                className="group relative px-10 py-3.5 bg-primary text-white rounded font-bold transition-all hover:bg-primary-hover shadow-md hover:shadow-lg"
+                className="group relative px-10 py-3.5 bg-primary text-white rounded font-bold transition-all hover:bg-primary-hover shadow-md hover:shadow-lg cta-glow"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {t("contactUs")}
@@ -106,9 +152,11 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: isRtl ? -50 : 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: isRtl ? -50 : 50, scale: 0.96 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
+            style={{ y }}
+            whileHover={{ scale: 1.02 }}
             className="flex-1 w-full relative max-w-md lg:max-w-xl mx-auto"
           >
             <img
@@ -116,21 +164,106 @@ export default function Home() {
               alt="Web Development Illustration"
               className="w-full h-auto drop-shadow-xl"
             />
+
+            <motion.div
+              animate={{ opacity: [0.15, 0.3, 0.15], y: [0, -10, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-8 -left-8 w-24 h-24 rounded-full bg-primary/10 blur-2xl pointer-events-none"
+            />
+            <motion.div
+              animate={{ opacity: [0.1, 0.25, 0.1], y: [0, 12, 0] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-secondary/10 blur-3xl pointer-events-none"
+            />
           </motion.div>
+        </div>
+
+        {/* Decorative floating blobs */}
+        <svg className="floating-blob animate" width="420" height="420" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ top: -80, left: -120 }}>
+          <circle cx="200" cy="200" r="160" fill="url(#g1)" />
+          <defs>
+            <radialGradient id="g1">
+              <stop offset="0%" stopColor="#00A651" />
+              <stop offset="100%" stopColor="#1E3A8A" />
+            </radialGradient>
+          </defs>
+        </svg>
+
+        <svg className="floating-blob animate" width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ bottom: -60, right: -100, animationDelay: '2s' }}>
+          <circle cx="150" cy="150" r="120" fill="url(#g2)" />
+          <defs>
+            <radialGradient id="g2">
+              <stop offset="0%" stopColor="#8B5CF6" />
+              <stop offset="100%" stopColor="#EC4899" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </section>
+
+      {/* Feature Pills */}
+      <section className="py-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12">
+          <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            {[
+              { label: isRtl ? 'حلول مخصصة' : 'Custom Solutions' },
+              { label: isRtl ? 'دعم 24/7' : '24/7 Support' },
+              { label: isRtl ? 'تسليم في الوقت المحدد' : 'On-time Delivery' },
+              { label: isRtl ? 'خبرة محلية' : 'Local Expertise' },
+            ].map((f, i) => (
+              <motion.div key={f.label} initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="feature-pill">
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary">✓</div>
+                  <div className="text-sm font-medium text-slate-700">{f.label}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Animated Stats Bar */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.65, delay: index * 0.1 }}
+                className="rounded-[2rem] bg-white border border-slate-200 p-8 shadow-sm hover:shadow-xl transition-shadow duration-500"
+              >
+                <div className="flex items-center justify-between gap-4 mb-4">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-primary/10 text-primary text-xl">
+                    {stat.icon}
+                  </div>
+                  <p className="text-4xl font-extrabold text-slate-900">{stat.value}</p>
+                </div>
+                <p className="text-sm text-slate-500 font-medium">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Bento Grid Divisions Section */}
       <section id="divisions" className="py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 sm:px-12">
-          <div className="mb-20 flex flex-col items-center md:items-start text-center md:text-start">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+            className="mb-20 flex flex-col items-center md:items-start text-center md:text-start"
+          >
             <span className="text-primary font-black uppercase tracking-widest text-sm mb-4">
               {isRtl ? "ماذا نفعل" : "Services We Provide"}
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
               {t("ourDivisions")}
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {divisions.map((div, i) => (
@@ -144,7 +277,7 @@ export default function Home() {
               >
                 <Link
                   to={div.path}
-                  className="group relative h-[400px] flex flex-col justify-end p-10 rounded-[3rem] overflow-hidden overflow-hidden shadow-xl shadow-slate-100 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-700 hover:-translate-y-2 border border-slate-100"
+                  className="group relative h-[400px] flex flex-col justify-end p-10 rounded-[3rem] overflow-hidden overflow-hidden shadow-xl shadow-slate-100 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-700 hover:-translate-y-2 border border-slate-100 card-tilt"
                 >
                   {/* Background Image with Hover Scale */}
                   <div className="absolute inset-0 z-0">
@@ -160,7 +293,7 @@ export default function Home() {
 
                   <div className="relative z-10">
                     <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-white mb-6 group-hover:bg-white group-hover:text-slate-900 transition-all transform group-hover:rotate-6">
-                      {React.cloneElement(div.icon as React.ReactElement, { className: "w-7 h-7" })}
+                      {React.cloneElement(div.icon as React.ReactElement<any, any>, { className: "w-7 h-7" })}
                     </div>
                     <h3 className="text-3xl font-black text-white mb-4">
                       {div.title}
@@ -273,6 +406,13 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonial Rotator */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-6 sm:px-12">
+          <TestimonialRotator />
         </div>
       </section>
 

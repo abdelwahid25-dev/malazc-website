@@ -27,15 +27,16 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 md:px-12 py-3 bg-white shadow-sm border-b border-slate-100 sticky top-0 z-50">
+      <header className="relative header-glass flex items-center justify-between px-6 md:px-12 py-3 sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-10 pointer-events-none" />
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 flex items-center justify-center">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm transition-transform group-hover:scale-105">
+          <motion.div initial={{ scale: 0.98 }} whileHover={{ scale: 1.04 }} className="w-12 h-12 flex items-center justify-center logo-badge">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
               <polygon points="0,0 0,100 47,50" fill="#1E3A8A" />
               <polygon points="100,0 100,100 53,50" fill="#00A651" />
             </svg>
-          </div>
+          </motion.div>
           <div className="flex flex-col leading-tight">
             <span className="text-xl font-bold tracking-tight uppercase text-gray-900">
               {t("companyName")}
@@ -55,9 +56,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm transition-colors ${
+              className={`nav-link text-sm transition-colors ${
                 location.pathname === link.path
-                  ? "font-semibold text-primary"
+                  ? "active font-semibold text-primary"
                   : "font-medium text-slate-500 hover:text-primary"
               }`}
             >

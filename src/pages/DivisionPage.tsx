@@ -30,7 +30,7 @@ export default function DivisionPage({
       <section className="bg-[#F9FAFB] py-20 px-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start justify-center text-start relative z-10">
           <div className="w-16 h-16 bg-green-50 rounded-xl flex items-center justify-center text-primary mb-8 border border-green-100">
-            {React.cloneElement(icon as React.ReactElement, {
+            {React.cloneElement(icon as React.ReactElement<any, any>, {
               className: "w-8 h-8",
             })}
           </div>
