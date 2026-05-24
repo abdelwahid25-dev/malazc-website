@@ -15,16 +15,41 @@ export default function Contact() {
   });
 
   const [status, setStatus] = React.useState<"idle" | "sending" | "success" | "error" | "mailto">("idle");
+  const [phoneError, setPhoneError] = React.useState(false);
+
+  const validatePhone = (value: string) => {
+    const cleanPhone = value.replace(/[\s()-]/g, "");
+    const phoneRegex = /^(\+?[0-9]{7,15})$/;
+    if (!cleanPhone || !phoneRegex.test(cleanPhone)) {
+      setPhoneError(true);
+      return false;
+    }
+    setPhoneError(false);
+    return true;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "phone") {
+      const cleanPhone = value.replace(/[\s()-]/g, "");
+      const phoneRegex = /^(\+?[0-9]{7,15})$/;
+      if (cleanPhone && phoneRegex.test(cleanPhone)) {
+        setPhoneError(false);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const isPhoneValid = validatePhone(formData.phone);
+    if (!isPhoneValid) {
+      return;
+    }
+
     if (!formData.name || !formData.email || !formData.message) {
       return;
     }
@@ -212,11 +237,18 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        onBlur={(e) => validatePhone(e.target.value)}
+                        required
                         disabled={status === "sending" || status === "mailto"}
-                        className={`w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors bg-slate-50/50 ${isRtl ? "text-right" : "text-left"}`}
+                        className={`w-full px-4 py-3 rounded-xl border ${phoneError ? "border-red-500 focus:ring-red-200 focus:border-red-500" : "border-slate-200 focus:ring-primary/20 focus:border-primary"} focus:outline-none focus:ring-2 transition-colors bg-slate-50/50 ${isRtl ? "text-right" : "text-left"}`}
                         placeholder={t("formPhone")}
                         dir="ltr"
                       />
+                      {phoneError && (
+                        <p className="text-red-500 text-xs mt-1 font-medium">
+                          {t("formPhoneError")}
+                        </p>
+                      )}
                     </div>
                   </div>
 
