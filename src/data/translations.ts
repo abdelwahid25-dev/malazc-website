@@ -77,6 +77,12 @@ export const translations = {
     phoneNumbers: "+966 58 111 7181",
     email: "info@malazc.com",
     whatsappText: "Chat on WhatsApp",
+    formSending: "Sending...",
+    formSuccessTitle: "Message Sent!",
+    formSuccessDesc: "Thank you! Your message has been successfully sent to Husam.",
+    formErrorTitle: "Submission Failed",
+    formErrorDesc: "Something went wrong. Please try again or email us directly.",
+    formMailtoDesc: "Redirecting to your email client to send the message...",
   },
   ar: {
     // General
@@ -152,5 +158,11 @@ export const translations = {
     phoneNumbers: "+966 58 111 7181",
     email: "info@malazc.com",
     whatsappText: "تواصل عبر واتساب",
+    formSending: "جاري الإرسال...",
+    formSuccessTitle: "تم إرسال الرسالة!",
+    formSuccessDesc: "شكراً لك! تم إرسال رسالتك بنجاح إلى حسام.",
+    formErrorTitle: "فشل الإرسال",
+    formErrorDesc: "حدث خطأ ما. يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة.",
+    formMailtoDesc: "جاري تحويلك إلى تطبيق البريد الإلكتروني لإرسال الرسالة...",
   },
 };

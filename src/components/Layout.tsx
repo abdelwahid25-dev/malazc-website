@@ -11,6 +11,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  React.useEffect(() => {
+    document.title = t("companyName");
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  }, [language, t]);
+
   const toggleLang = () => {
     setLanguage(language === "ar" ? "en" : "ar");
   };
