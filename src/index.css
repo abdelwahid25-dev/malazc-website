@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #00a651; /* Logo Green */
   --color-primary-hover: #008f45;
@@ -54,4 +56,47 @@ body {
   background-color: var(--color-bg-light);
   color: #1f2937;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.dark body {
+  background-color: #020617;
+  color: #e2e8f0;
+}
+
+::selection {
+  background: rgba(0, 166, 81, 0.22);
+  color: #0f172a;
+}
+
+.dark ::selection {
+  color: #f8fafc;
+}
+
+img {
+  max-width: 100%;
+}
+
+.surface-grid {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.dark .surface-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+}
+
+.elevated-surface {
+  box-shadow: 0 20px 50px -32px rgba(15, 23, 42, 0.45);
+}
+
+.dark .elevated-surface {
+  box-shadow: 0 24px 70px -42px rgba(0, 0, 0, 0.95);
 }

@@ -3,31 +3,44 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import {
   ArrowRight,
-  Truck,
-  Laptop,
-  HardHat,
-  TrendingUp,
-  Target,
-  Flag,
-  ChevronRight,
-  CheckCircle2,
-  Globe,
-  Users,
   Award,
+  CheckCircle2,
+  Flag,
+  Globe,
+  HardHat,
+  Laptop,
+  Target,
+  TrendingUp,
+  Truck,
+  Users,
 } from "lucide-react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 
 export default function Home() {
   const { t, language } = useLanguage();
   const isRtl = language === "ar";
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
 
   const stats = [
-    { label: isRtl ? "سنوات من التميز" : "Years of Excellence", value: "10+", icon: <Award className="w-5 h-5" /> },
-    { label: isRtl ? "مشروع مكتمل" : "Successful Projects", value: "500+", icon: <CheckCircle2 className="w-5 h-5" /> },
-    { label: isRtl ? "عميل سعيد" : "Happy Clients", value: "200+", icon: <Users className="w-5 h-5" /> },
-    { label: isRtl ? "مدينة مغطاة" : "Cities Covered", value: "15+", icon: <Globe className="w-5 h-5" /> },
+    {
+      label: isRtl ? "سنوات من التميز" : "Years of Excellence",
+      value: "10+",
+      icon: <Award className="h-5 w-5" />,
+    },
+    {
+      label: isRtl ? "مشروع مكتمل" : "Successful Projects",
+      value: "100+",
+      icon: <CheckCircle2 className="h-5 w-5" />,
+    },
+    {
+      label: isRtl ? "عميل سعيد" : "Happy Clients",
+      value: "50+",
+      icon: <Users className="h-5 w-5" />,
+    },
+    {
+      label: isRtl ? "مدينة مغطاة" : "Cities Covered",
+      value: "15+",
+      icon: <Globe className="h-5 w-5" />,
+    },
   ];
 
   const divisions = [
@@ -37,9 +50,9 @@ export default function Home() {
       desc: t("logisticsFeatures"),
       icon: <Truck />,
       path: "/logistics",
-      color: "from-blue-600 to-indigo-700",
-      image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop",
-      span: "md:col-span-2",
+      image:
+        "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop",
+      accent: "bg-secondary",
     },
     {
       id: "it",
@@ -47,9 +60,9 @@ export default function Home() {
       desc: t("itFeatures"),
       icon: <Laptop />,
       path: "/it",
-      color: "from-emerald-500 to-teal-600",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
-      span: "md:col-span-1",
+      image:
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+      accent: "bg-primary",
     },
     {
       id: "contracting",
@@ -57,9 +70,9 @@ export default function Home() {
       desc: t("contractingFeatures"),
       icon: <HardHat />,
       path: "/contracting",
-      color: "from-amber-500 to-orange-600",
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop",
-      span: "md:col-span-1",
+      image:
+        "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop",
+      accent: "bg-amber-500",
     },
     {
       id: "marketing",
@@ -67,111 +80,159 @@ export default function Home() {
       desc: t("marketingFeatures"),
       icon: <TrendingUp />,
       path: "/marketing",
-      color: "from-purple-500 to-pink-600",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
-      span: "md:col-span-2",
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+      accent: "bg-slate-950 dark:bg-white",
     },
   ];
 
-  return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Dynamic Hero Section */}
-      <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden bg-slate-50/50">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10 w-full flex flex-col lg:flex-row items-center gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-center lg:text-start flex-1"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-slate-700 leading-[1.2] mb-6 tracking-tight">
-              {t("heroHeadline").split("–")[0]}
-              <span className="block mt-2 text-primary font-bold">
-                {t("heroHeadline").split("–")[1]?.trim() || t("companyName")}
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl text-slate-500 mb-10 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              {t("homeSubheadline")}
-            </p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <Link
-                to="/contact"
-                className="group relative px-10 py-3.5 bg-primary text-white rounded font-bold transition-all hover:bg-primary-hover shadow-md hover:shadow-lg"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  {t("contactUs")}
-                </span>
-              </Link>
-            </div>
-          </motion.div>
+  const principles = [
+    {
+      title: t("visionTitle"),
+      text: t("visionDesc"),
+      icon: <Target className="h-5 w-5" />,
+    },
+    {
+      title: t("missionTitle"),
+      text: t("missionDesc"),
+      icon: <Flag className="h-5 w-5" />,
+    },
+  ];
+  const homeAboutBrief = isRtl
+    ? "ملاذك شركة رائدة تقدم حلولاً متكاملة عبر القطاعات الرئيسية. نحن ملتزمون بتقديم التميز والموثوقية لدفع عجلة نمو أعمالك."
+    : "Malazc is a premier company offering integrated solutions across key sectors. We are dedicated to providing excellence and reliability to power your business growth.";
 
-          <motion.div
-            initial={{ opacity: 0, x: isRtl ? -50 : 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="flex-1 w-full relative max-w-md lg:max-w-xl mx-auto"
-          >
-            <img
-              src="https://illustrations.popsy.co/green/web-design.svg"
-              alt="Web Development Illustration"
-              className="w-full h-auto drop-shadow-xl"
-            />
-          </motion.div>
+  return (
+    <div className="bg-white transition-colors dark:bg-slate-950">
+      <section className="relative min-h-[78svh] overflow-hidden bg-slate-50 transition-colors dark:bg-slate-950">
+        <img
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
+          alt="Malazc integrated solutions workspace"
+          className="absolute inset-0 h-full w-full object-cover opacity-20 saturate-75 dark:opacity-100 dark:saturate-100"
+        />
+        <div className="absolute inset-0 bg-white/[0.86] dark:bg-slate-950/72" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,166,81,0.12),transparent_42%,rgba(30,58,138,0.12))] dark:hidden" />
+        <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(0,166,81,0.22),transparent_42%,rgba(30,58,138,0.28))] dark:block" />
+
+        <div className="relative mx-auto flex min-h-[78svh] max-w-7xl items-center px-5 py-16 sm:px-8 lg:py-20">
+          <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="max-w-4xl"
+            >
+              <span className="mb-6 inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white/[0.82] px-3 py-2 text-xs font-extrabold uppercase text-slate-700 shadow-sm backdrop-blur dark:border-white/18 dark:bg-white/10 dark:text-white">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                {isRtl ? "شركة متعددة القطاعات" : "Multi-sector company"}
+              </span>
+              <h1 className="max-w-5xl text-5xl font-extrabold leading-[0.95] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+                {t("companyName")}
+                <span className="block text-primary">
+                  {t("heroHeadline").split("–")[1]?.trim() || t("homeSubheadline")}
+                </span>
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg font-medium leading-8 text-slate-600 dark:text-slate-200 sm:text-xl">
+                {homeAboutBrief}
+              </p>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary-hover"
+                >
+                  {t("contactUs")}
+                  <ArrowRight className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />
+                </Link>
+                <a
+                  href="#divisions"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white/[0.82] px-7 py-4 text-sm font-extrabold text-slate-950 shadow-sm backdrop-blur transition-colors hover:bg-white dark:border-white/24 dark:bg-white/10 dark:text-white dark:hover:bg-white/16"
+                >
+                  {t("ourDivisions")}
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+              className="elevated-surface rounded-lg border border-slate-200 bg-white/[0.82] p-5 backdrop-blur-md dark:border-white/14 dark:bg-slate-950/55"
+            >
+              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-slate-200 bg-slate-200 dark:border-white/10 dark:bg-white/10">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="bg-white p-5 dark:bg-slate-950/55">
+                    <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 text-primary dark:bg-white/10">
+                      {stat.icon}
+                    </div>
+                    <div className="text-3xl font-extrabold text-slate-950 dark:text-white">{stat.value}</div>
+                    <div className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Bento Grid Divisions Section */}
-      <section id="divisions" className="py-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12">
-          <div className="mb-20 flex flex-col items-center md:items-start text-center md:text-start">
-            <span className="text-primary font-black uppercase tracking-widest text-sm mb-4">
-              {isRtl ? "ماذا نفعل" : "Services We Provide"}
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
-              {t("ourDivisions")}
-            </h2>
+      <section id="divisions" className="py-20 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="mb-12 grid gap-6 lg:grid-cols-[0.85fr_1fr] lg:items-end">
+            <div>
+              <span className="mb-4 block text-sm font-extrabold uppercase text-primary">
+                {isRtl ? "ماذا نفعل" : "Services We Provide"}
+              </span>
+              <h2 className="max-w-2xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
+                {t("ourDivisions")}
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300 lg:justify-self-end">
+              {t("homeSubheadline")}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {divisions.map((div, i) => (
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {divisions.map((div, index) => (
               <motion.div
                 key={div.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className={div.span}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
               >
                 <Link
                   to={div.path}
-                  className="group relative h-[400px] flex flex-col justify-end p-10 rounded-[3rem] overflow-hidden overflow-hidden shadow-xl shadow-slate-100 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-700 hover:-translate-y-2 border border-slate-100"
+                  className="group elevated-surface block overflow-hidden rounded-lg border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-primary/40"
                 >
-                  {/* Background Image with Hover Scale */}
-                  <div className="absolute inset-0 z-0">
+                  <div className="relative aspect-[4/3] overflow-hidden">
                     <img
                       src={div.image}
                       alt={div.title}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-80 transition-opacity group-hover:opacity-90`} />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${div.color} opacity-0 group-hover:opacity-40 transition-opacity duration-700`} />
-                  </div>
-
-                  <div className="relative z-10">
-                    <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-white mb-6 group-hover:bg-white group-hover:text-slate-900 transition-all transform group-hover:rotate-6">
-                      {React.cloneElement(div.icon as React.ReactElement, { className: "w-7 h-7" })}
+                    <div className="absolute inset-0 bg-slate-950/25 transition-colors group-hover:bg-slate-950/10" />
+                    <div className={`absolute start-4 top-4 h-11 w-11 rounded-md ${div.accent} flex items-center justify-center text-white shadow-lg`}>
+                      {React.cloneElement(div.icon as React.ReactElement, {
+                        className: "h-5 w-5",
+                      })}
                     </div>
-                    <h3 className="text-3xl font-black text-white mb-4">
-                      {div.title}
-                    </h3>
-                    <p className="text-white/70 text-sm md:text-base leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 duration-500">
+                  </div>
+                  <div className="p-5">
+                    <div className="mb-3 flex items-center justify-between gap-4">
+                      <h3 className="text-xl font-extrabold text-slate-950 dark:text-white">
+                        {div.title}
+                      </h3>
+                      <ArrowRight
+                        className={`h-5 w-5 text-primary transition-transform ${isRtl
+                          ? "rotate-180 group-hover:-translate-x-1"
+                          : "group-hover:translate-x-1"
+                          }`}
+                      />
+                    </div>
+                    <p className="text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">
                       {div.desc}
                     </p>
-                    <div className="flex items-center gap-2 text-white font-black text-xs uppercase tracking-[0.2em]">
-                      {t("readMore")}
-                      <ArrowRight className={`w-4 h-4 transition-transform ${isRtl ? "rotate-180 group-hover:-translate-x-2" : "group-hover:translate-x-2"}`} />
-                    </div>
                   </div>
                 </Link>
               </motion.div>
@@ -180,144 +241,98 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modern About Section - Split Graphic */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
-        {/* Decorative Grid */}
-        <div className="absolute inset-0 opacity-[0.03] grayscale pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-24 items-center">
-            <div className="relative group">
-              <motion.div
-                initial={{ opacity: 0, rotate: -2 }}
-                whileInView={{ opacity: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                className="relative z-20 aspect-square rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border-8 border-white"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
-                  alt="Modern Office"
-                  className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-700"
-                />
-              </motion.div>
-              
-              {/* Overlapping Info Card */}
-              <motion.div
-                initial={{ opacity: 0, x: isRtl ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className={`absolute -bottom-10 ${isRtl ? "-left-10" : "-right-10"} z-30 p-8 bg-white rounded-[2.5rem] shadow-2xl max-w-xs border border-slate-100`}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <div className="font-bold text-slate-900 tracking-tight">{isRtl ? "موثوق محلياً" : "Trusted Locally"}</div>
-                </div>
-                <p className="text-slate-500 text-sm leading-relaxed italic">
-                  {isRtl ? "نحن نبني الشراكات القوية من خلال التفاني في التميز." : "We build strong partnerships through dedication to excellence."}
-                </p>
-              </motion.div>
-
-              {/* Decorative Circle */}
-              <div className="absolute -top-10 -left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10" />
-            </div>
-
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-start">
-              <span className="px-4 py-1 rounded-full bg-secondary/10 text-secondary font-black text-xs uppercase tracking-widest mb-8">
-                {t("navAbout")}
-              </span>
-              <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[0.9] mb-8 tracking-tighter">
-                {t("companyName")}
-                <span className="text-primary">.</span>
-              </h2>
-              <div className="w-20 h-2 bg-primary rounded-full mb-10 mx-auto lg:mx-0" />
-              <p className="text-xl text-slate-600 leading-relaxed max-w-2xl mb-12 font-medium">
-                {t("aboutBrief")}
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-8 mb-12 w-full">
-                <div className="p-8 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-all group">
-                  <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:-rotate-6">
-                    <Target className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-black text-slate-900 mb-2 uppercase tracking-tight">
-                    {t("visionTitle")}
-                  </h4>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    {t("visionDesc")}
-                  </p>
-                </div>
-                <div className="p-8 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-all group">
-                  <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-secondary mb-6 group-hover:bg-secondary group-hover:text-white transition-all transform group-hover:rotate-6">
-                    <Flag className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-black text-slate-900 mb-2 uppercase tracking-tight">
-                    {t("missionTitle")}
-                  </h4>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    {t("missionDesc")}
-                  </p>
-                </div>
+      <section className="surface-grid border-y border-slate-200 bg-slate-50 py-20 transition-colors dark:border-slate-800 dark:bg-slate-900/60 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+            <img
+              src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074&auto=format&fit=crop"
+              alt="Malazc team collaboration"
+              className="aspect-[5/4] h-full w-full object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-slate-950/72 p-5 text-white backdrop-blur-sm">
+              <div className="text-sm font-extrabold uppercase text-primary">
+                {isRtl ? "موثوق محلياً" : "Trusted Locally"}
               </div>
-
-              <Link
-                to="/about"
-                className="group flex items-center gap-4 text-slate-900 font-black text-lg uppercase tracking-tight hover:text-primary transition-colors"
-              >
-                {t("learnMore")}
-                <div className="w-12 h-12 rounded-full border-2 border-slate-900 flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all">
-                  <ArrowRight className={`w-5 h-5 transition-transform ${isRtl ? "rotate-180 group-hover:-translate-x-1" : "group-hover:translate-x-1"}`} />
-                </div>
-              </Link>
+              <p className="mt-1 text-sm text-slate-200">
+                {isRtl
+                  ? "نموذج واحد يجمع الخدمات التشغيلية والرقمية."
+                  : "One operating model across physical and digital services."}
+              </p>
             </div>
+          </div>
+
+          <div>
+            <span className="mb-4 block text-sm font-extrabold uppercase text-primary">
+              {t("navAbout")}
+            </span>
+            <h2 className="max-w-2xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
+              {t("companyName")}{" "}
+              <span className="text-secondary dark:text-primary">
+                {isRtl ? "تبني حلولاً تعمل بجدية." : "builds solutions that work."}
+              </span>
+            </h2>
+            <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
+              {homeAboutBrief}
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {principles.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-950"
+                >
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-extrabold text-slate-950 dark:text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              to="/about"
+              className="mt-8 inline-flex items-center gap-2 rounded-md bg-secondary px-6 py-3 text-sm font-extrabold text-white transition-all hover:-translate-y-0.5 hover:bg-secondary-hover"
+            >
+              {t("learnMore")}
+              <ArrowRight className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Enhanced CTA Panel */}
-      <section className="py-32 px-6 sm:px-12 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative overflow-hidden rounded-[4rem] group">
-            <div className="absolute inset-0 bg-slate-900">
-              <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
-                alt="Architecture"
-                className="w-full h-full object-cover opacity-20 transition-transform duration-10k group-hover:scale-110"
-              />
+      <section className="px-5 py-20 sm:px-8 sm:py-24">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-lg bg-slate-950">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+            alt="Business district architecture"
+            className="absolute inset-0 h-full w-full object-cover opacity-[0.32]"
+          />
+          <div className="absolute inset-0 bg-slate-950/62" />
+          <div className="relative grid gap-8 px-6 py-14 sm:px-10 lg:grid-cols-[1fr_auto] lg:items-center lg:px-14">
+            <div>
+              <h2 className="max-w-3xl text-3xl font-extrabold leading-tight text-white sm:text-5xl">
+                {isRtl
+                  ? "جاهز لبناء مستقبلك الرقمي والتشغيلي؟"
+                  : "Ready to build your digital and operational future?"}
+              </h2>
+              <p className="mt-4 max-w-2xl text-base font-medium leading-8 text-slate-300">
+                {isRtl
+                  ? "ابدأ محادثة مباشرة مع فريق ملاذك واختر القسم المناسب لاحتياجك."
+                  : "Start a focused conversation with Malazc and choose the division that matches your need."}
+              </p>
             </div>
-            
-            <div className="relative z-10 p-16 md:p-24 flex flex-col items-center text-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="max-w-3xl"
-              >
-                <h2 className="text-4xl md:text-7xl font-black text-white mb-10 tracking-tight leading-none">
-                  {isRtl ? "جاهز لبناء مستقبلك الرقمي والواقعي معنا؟" : "Ready to Build Your Digital and Physical Future?"}
-                </h2>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Link
-                    to="/contact"
-                    className="px-12 py-5 bg-secondary text-white rounded-2xl font-black text-xl hover:bg-secondary-hover hover:scale-105 transition-all shadow-2xl shadow-secondary/20"
-                  >
-                    {t("contactUs")}
-                  </Link>
-                  <Link
-                    to="/about"
-                    className="px-12 py-5 bg-transparent text-white border-2 border-white/30 rounded-2xl font-black text-xl hover:bg-white/10 transition-all"
-                  >
-                    {isRtl ? "شاهد عرضنا" : "View Portfolio"}
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Floating Icons */}
-            <div className="absolute top-10 left-10 w-20 h-20 border border-white/10 rounded-full animate-bounce opacity-20" />
-            <div className="absolute bottom-10 right-10 w-32 h-32 border border-white/10 rounded-full animate-pulse opacity-10" />
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-4 text-sm font-extrabold text-white transition-all hover:-translate-y-0.5 hover:bg-primary-hover"
+            >
+              {t("contactUs")}
+              <ArrowRight className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />
+            </Link>
           </div>
         </div>
       </section>

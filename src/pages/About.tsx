@@ -1,82 +1,98 @@
-import React from "react";
 import { useLanguage } from "../context/LanguageContext";
-import { Target, Flag, CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Flag, Target } from "lucide-react";
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isRtl = language === "ar";
+  const goals = [t("goal1"), t("goal2"), t("goal3")];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <section className="bg-[#F9FAFB] py-20 px-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-start relative z-10">
-          <span className="inline-block px-3 py-1 mb-4 rounded-full bg-green-50 border border-green-100 text-primary text-xs font-bold uppercase tracking-wider">
+    <div className="bg-white transition-colors dark:bg-slate-950">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-slate-950 dark:border-slate-800">
+        <img
+          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074&auto=format&fit=crop"
+          alt="Malazc business team"
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.34]"
+        />
+        <div className="absolute inset-0 bg-slate-950/68" />
+        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
+          <span className="mb-5 inline-flex rounded-md border border-white/18 bg-white/10 px-3 py-2 text-xs font-extrabold uppercase text-primary backdrop-blur">
             {t("navAbout")}
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-6">
+          <h1 className="max-w-3xl text-5xl font-extrabold leading-tight text-white sm:text-6xl">
             {t("aboutUsTitle")}
           </h1>
-          <p className="text-xl text-slate-500 max-w-2xl leading-relaxed italic">
+          <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-200">
             {t("aboutBrief")}
           </p>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 mb-24">
-            {/* Vision */}
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100 relative group hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                <Target className="w-7 h-7" />
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="elevated-surface rounded-lg border border-slate-200 bg-white p-7 transition-colors dark:border-slate-800 dark:bg-slate-900">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 text-primary">
+                <Target className="h-6 w-6" />
               </div>
-              <h2 className="text-2xl font-bold text-primary mb-4">
+              <h2 className="text-2xl font-extrabold text-slate-950 dark:text-white">
                 {t("visionTitle")}
               </h2>
-              <p className="text-slate-500 leading-relaxed text-lg">
+              <p className="mt-4 text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
                 {t("visionDesc")}
               </p>
             </div>
 
-            {/* Mission */}
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100 relative group hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                <Flag className="w-7 h-7" />
+            <div className="elevated-surface rounded-lg border border-slate-200 bg-white p-7 transition-colors dark:border-slate-800 dark:bg-slate-900">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-md bg-secondary/10 text-secondary dark:bg-primary/10 dark:text-primary">
+                <Flag className="h-6 w-6" />
               </div>
-              <h2 className="text-2xl font-bold text-primary mb-4">
+              <h2 className="text-2xl font-extrabold text-slate-950 dark:text-white">
                 {t("missionTitle")}
               </h2>
-              <p className="text-slate-500 leading-relaxed text-lg">
+              <p className="mt-4 text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
                 {t("missionDesc")}
               </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Goals */}
-          <div className="bg-[#F9FAFB] rounded-2xl p-10 md:p-16 border border-slate-100">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-extrabold text-primary mb-4">
+      <section className="surface-grid border-y border-slate-200 bg-slate-50 py-20 transition-colors dark:border-slate-800 dark:bg-slate-900/60 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1fr] lg:items-end">
+            <div>
+              <span className="mb-4 block text-sm font-extrabold uppercase text-primary">
+                {isRtl ? "التركيز" : "Focus"}
+              </span>
+              <h2 className="text-4xl font-extrabold text-slate-950 dark:text-white sm:text-5xl">
                 {t("goalsTitle")}
               </h2>
-              <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full" />
             </div>
+            <p className="max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
+              {isRtl
+                ? "نحو نموذج خدمات موحد يخدم الشركات بسرعة وجودة ووضوح."
+                : "A unified service model for companies that need speed, quality, and clear ownership."}
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[t("goal1"), t("goal2"), t("goal3")].map((goal, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-sm border border-slate-50 group hover:shadow-md transition-shadow"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-green-50 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <p className="text-slate-600 font-medium leading-relaxed">
-                    {goal}
-                  </p>
+          <div className="grid gap-5 md:grid-cols-3">
+            {goals.map((goal, idx) => (
+              <div
+                key={goal}
+                className="rounded-lg border border-slate-200 bg-white p-6 transition-colors dark:border-slate-800 dark:bg-slate-950"
+              >
+                <div className="mb-8 flex items-center justify-between">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                  <span className="text-4xl font-extrabold text-slate-200 dark:text-slate-800">
+                    0{idx + 1}
+                  </span>
                 </div>
-              ))}
-            </div>
+                <p className="text-base font-semibold leading-8 text-slate-700 dark:text-slate-300">
+                  {goal}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

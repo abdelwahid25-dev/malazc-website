@@ -1,24 +1,43 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-import { Menu, X, Globe, Building2 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-
+import { useTheme } from "../context/ThemeContext";
+import {
+  ArrowUpRight,
+  Mail,
+  MapPin,
+  Menu,
+  Moon,
+  Phone,
+  Sun,
+  X,
+} from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isDark = theme === "dark";
+  const isRtl = language === "ar";
+  const themeLabel = isDark
+    ? isRtl
+      ? "التبديل إلى الوضع الفاتح"
+      : "Switch to light mode"
+    : isRtl
+      ? "التبديل إلى الوضع الداكن"
+      : "Switch to dark mode";
 
   React.useEffect(() => {
     document.title = t("companyName");
     document.documentElement.lang = language;
-    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
-  }, [language, t]);
+    document.documentElement.dir = isRtl ? "rtl" : "ltr";
+  }, [isRtl, language, t]);
 
   const toggleLang = () => {
-    setLanguage(language === "ar" ? "en" : "ar");
+    setLanguage(isRtl ? "en" : "ar");
   };
 
   const navLinks = [
@@ -30,120 +49,150 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
     { name: t("navMarketing"), path: "/marketing" },
   ];
 
+  const footerLinks = [
+    { name: t("navAbout"), path: "/about" },
+    { name: t("navLogistics"), path: "/logistics" },
+    { name: t("navIT"), path: "/it" },
+    { name: t("navContracting"), path: "/contracting" },
+    { name: t("navMarketing"), path: "/marketing" },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
-      <header className="flex items-center justify-between px-6 md:px-12 py-3 bg-white shadow-sm border-b border-slate-100 sticky top-0 z-50">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 flex items-center justify-center">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm transition-transform group-hover:scale-105">
-              <polygon points="0,0 0,100 47,50" fill="#1E3A8A" />
-              <polygon points="100,0 100,100 53,50" fill="#00A651" />
-            </svg>
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-xl font-bold tracking-tight uppercase text-gray-900">
-              {t("companyName")}
-            </span>
-            <span
-              className="text-xs font-semibold text-slate-500 text-right"
-              dir="rtl"
-            >
-              {language === "en" ? "ملاذك" : "Malazc"}
-            </span>
-          </div>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`text-sm transition-colors ${
-                location.pathname === link.path
-                  ? "font-semibold text-primary"
-                  : "font-medium text-slate-500 hover:text-primary"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Actions */}
-        <div className="hidden md:flex items-center gap-4">
-          <button
-            onClick={toggleLang}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50 transition-colors"
-            title="Switch language"
-          >
-            <span className={language === "ar" ? "opacity-40" : ""}>EN</span>
-            <span className="w-[1px] h-3 bg-slate-300"></span>
-            <span className={language === "en" ? "opacity-40" : ""}>
-              العربية
-            </span>
-          </button>
+    <div className="min-h-screen bg-white text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100">
+      <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/88 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-950/88">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
           <Link
-            to="/contact"
-            className="px-5 py-1.5 bg-secondary text-white font-bold text-sm rounded-lg shadow-md hover:bg-secondary-hover transition-all"
+            to="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="group flex items-center gap-3"
           >
-            {t("navContact")}
+            <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm transition-transform group-hover:-translate-y-0.5 dark:border-slate-800 dark:bg-slate-900">
+              <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+              >
+                <polygon points="0,0 0,100 47,50" fill="#1E3A8A" />
+                <polygon points="100,0 100,100 53,50" fill="#00A651" />
+              </svg>
+            </span>
+            <span className="flex flex-col leading-tight">
+              <span className="text-lg font-extrabold uppercase text-slate-950 dark:text-white">
+                {t("companyName")}
+              </span>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                {isRtl ? "Malazc" : "ملاذك"}
+              </span>
+            </span>
           </Link>
+
+          <nav className="hidden items-center gap-1 lg:flex">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`rounded-md px-3 py-2 text-sm font-semibold transition-colors ${isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+                    }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="hidden items-center gap-3 lg:flex">
+            <button
+              onClick={toggleTheme}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary dark:border-slate-800 dark:text-slate-300 dark:hover:border-primary/30 dark:hover:bg-primary/10"
+              title={themeLabel}
+              aria-label={themeLabel}
+              aria-pressed={isDark}
+            >
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={toggleLang}
+              className="inline-flex h-10 items-center gap-2 rounded-md border border-slate-200 px-3 text-sm font-bold text-slate-700 transition-colors hover:border-secondary/40 hover:bg-secondary/5 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-900"
+              title="Switch language"
+            >
+              <span className={isRtl ? "opacity-40" : ""}>EN</span>
+              <span className="h-3 w-px bg-slate-300 dark:bg-slate-700" />
+              <span className={isRtl ? "" : "opacity-40"}>AR</span>
+            </button>
+            <Link
+              to="/contact"
+              className="inline-flex h-10 items-center gap-2 rounded-md bg-secondary px-5 text-sm font-extrabold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-secondary-hover"
+            >
+              {t("navContact")}
+              <ArrowUpRight className={`h-4 w-4 ${isRtl ? "-scale-x-100" : ""}`} />
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={toggleTheme}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-900"
+              title={themeLabel}
+              aria-label={themeLabel}
+              aria-pressed={isDark}
+            >
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-900"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex md:hidden items-center gap-4">
-          <button
-            onClick={toggleLang}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50 transition-colors"
-            title="Switch language"
-          >
-            <span className={language === "ar" ? "opacity-40" : ""}>EN</span>
-            <span className="w-[1px] h-3 bg-slate-300"></span>
-            <span className={language === "en" ? "opacity-40" : ""}>AR</span>
-          </button>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 -me-2 text-slate-600"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="absolute top-[56px] left-0 right-0 md:hidden border-b border-gray-100 bg-white shadow-lg overflow-hidden"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              className="border-t border-slate-200 bg-white px-5 py-5 shadow-xl shadow-slate-950/5 dark:border-slate-800 dark:bg-slate-950 dark:shadow-black/30 lg:hidden"
             >
-              <div className="px-4 py-6 space-y-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block text-base font-medium py-2 ${
-                      location.pathname === link.path
-                        ? "text-primary font-bold"
-                        : "text-slate-600"
-                    }`}
+              <div className="mx-auto max-w-7xl space-y-2">
+                {navLinks.map((link) => {
+                  const isActive = location.pathname === link.path;
+                  return (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`block rounded-md px-3 py-3 text-base font-bold transition-colors ${isActive
+                          ? "bg-primary/10 text-primary"
+                          : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900"
+                        }`}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
+                <div className="grid grid-cols-2 gap-3 pt-4">
+                  <button
+                    onClick={toggleLang}
+                    className="rounded-md border border-slate-200 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-800 dark:text-slate-200"
                   >
-                    {link.name}
-                  </Link>
-                ))}
-                <div className="pt-4 mt-4 border-t border-gray-100">
+                    {isRtl ? "English" : "العربية"}
+                  </button>
                   <Link
                     to="/contact"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex justify-center w-full px-6 py-3 rounded-lg bg-secondary hover:bg-secondary-hover text-white font-bold"
+                    className="rounded-md bg-secondary px-4 py-3 text-center text-sm font-extrabold text-white"
                   >
                     {t("navContact")}
                   </Link>
@@ -154,192 +203,94 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
         </AnimatePresence>
       </header>
 
-      {/* Main Content */}
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
           >
             {children}
           </motion.div>
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            {/* Branding */}
-            <div className="space-y-6">
-              <Link to="/" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 flex items-center justify-center">
-                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm transition-transform group-hover:scale-105">
+      <footer className="border-t border-slate-200 bg-slate-950 text-slate-300 dark:border-slate-800">
+        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr_1fr]">
+            <div>
+              <Link to="/" className="mb-6 inline-flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-white">
+                  <svg
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-8 w-8"
+                  >
                     <polygon points="0,0 0,100 47,50" fill="#1E3A8A" />
                     <polygon points="100,0 100,100 53,50" fill="#00A651" />
                   </svg>
-                </div>
-                <div className="flex flex-col leading-tight">
-                  <span className="text-xl font-bold tracking-tight uppercase text-white">
+                </span>
+                <span className="flex flex-col leading-tight">
+                  <span className="text-lg font-extrabold uppercase text-white">
                     {t("companyName")}
                   </span>
-                  <span
-                    className="text-xs font-semibold text-slate-400 text-right opacity-80"
-                    dir="rtl"
-                  >
-                    {language === "en" ? "ملاذك" : "Malazc"}
+                  <span className="text-xs font-semibold text-slate-400">
+                    {isRtl ? "Malazc" : "ملاذك"}
                   </span>
-                </div>
+                </span>
               </Link>
-              <p className="text-sm leading-relaxed text-slate-400">
+              <p className="max-w-md text-sm leading-7 text-slate-400">
                 {t("aboutBrief")}
               </p>
             </div>
 
-            {/* Quick Links */}
             <div>
-              <h4 className="text-white font-bold mb-6">{t("navHome")}</h4>
-              <ul className="space-y-4 text-sm">
-                <li>
-                  <Link to="/" className="hover:text-primary transition-colors">
-                    {t("navHome")}
-                  </Link>
-                </li>
-                <li>
+              <h4 className="mb-5 text-sm font-extrabold uppercase text-white">
+                {t("ourDivisions")}
+              </h4>
+              <div className="grid gap-3 text-sm">
+                {footerLinks.map((link) => (
                   <Link
-                    to="/about"
-                    className="hover:text-primary transition-colors"
+                    key={link.path}
+                    to={link.path}
+                    className="w-fit text-slate-400 transition-colors hover:text-primary"
                   >
-                    {t("navAbout")}
+                    {link.name}
                   </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contact"
-                    className="hover:text-primary transition-colors"
-                  >
-                    {t("navContact")}
-                  </Link>
-                </li>
-              </ul>
+                ))}
+              </div>
             </div>
 
-            {/* Services */}
             <div>
-              <h4 className="text-white font-bold mb-6">{t("ourDivisions")}</h4>
-              <ul className="space-y-4 text-sm">
-                <li>
-                  <Link
-                    to="/logistics"
-                    className="hover:text-primary transition-colors"
-                  >
-                    {t("navLogistics")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/it"
-                    className="hover:text-primary transition-colors"
-                  >
-                    {t("navIT")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contracting"
-                    className="hover:text-primary transition-colors"
-                  >
-                    {t("navContracting")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/marketing"
-                    className="hover:text-primary transition-colors"
-                  >
-                    {t("navMarketing")}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="text-white font-bold mb-6">{t("navContact")}</h4>
-              <ul className="space-y-4 text-sm">
+              <h4 className="mb-5 text-sm font-extrabold uppercase text-white">
+                {t("navContact")}
+              </h4>
+              <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      ></path>
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      ></path>
-                    </svg>
-                  </div>
+                  <MapPin className="mt-0.5 h-4 w-4 text-primary" />
                   <span>{t("location")}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      ></path>
-                    </svg>
-                  </div>
+                  <Phone className="mt-0.5 h-4 w-4 text-primary" />
                   <span dir="ltr">{t("phoneNumbers")}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      ></path>
-                    </svg>
-                  </div>
+                  <Mail className="mt-0.5 h-4 w-4 text-primary" />
                   <span>{t("email")}</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-medium uppercase tracking-widest text-slate-500">
+          <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-6 text-xs font-semibold uppercase text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>
-              © {new Date().getFullYear()} {t("companyName")}. Empowering Saudi
-              Vision 2030.
+              © {new Date().getFullYear()} {t("companyName")}.{" "}
+              {isRtl ? "كل الحقوق محفوظة." : "All rights reserved."}
             </p>
-            <p>Official Integrated Solutions Partner</p>
+            <p>{isRtl ? "شريك حلول متكاملة" : "Integrated Solutions Partner"}</p>
           </div>
         </div>
       </footer>
