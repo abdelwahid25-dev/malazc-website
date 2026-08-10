@@ -105,51 +105,100 @@ export default function Home() {
 
   return (
     <div className="bg-white transition-colors dark:bg-slate-950">
-      <section className="relative min-h-[78svh] overflow-hidden bg-slate-50 transition-colors dark:bg-slate-950">
+      <section className="relative isolate overflow-hidden bg-slate-50 transition-colors dark:bg-[#020617]">
+        {/* Brand photo: prominent in light mode, dissolved into atmospheric texture in dark mode */}
         <img
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
           alt={t("homeHeroImageAlt")}
-          className="absolute inset-0 h-full w-full object-cover opacity-20 saturate-75 dark:opacity-100 dark:saturate-100"
+          className="absolute inset-0 h-full w-full object-cover opacity-20 saturate-75 dark:opacity-[0.05] dark:blur-2xl dark:saturate-0"
         />
-        <div className="absolute inset-0 bg-white/[0.86] dark:bg-slate-950/72" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,166,81,0.12),transparent_42%,rgba(30,58,138,0.12))] dark:hidden" />
-        <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(0,166,81,0.22),transparent_42%,rgba(30,58,138,0.28))] dark:block" />
+
+        {/* Light-mode overlay (unchanged look) */}
+        <div className="absolute inset-0 bg-white/[0.86] dark:hidden" />
+        {/* Light-mode brand tint */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,166,81,0.16),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(30,58,138,0.2),transparent_36%)] dark:hidden" />
+
+        {/* Dark-mode: deep midnight canvas that fully absorbs the photo's rectangular edges */}
+        <div
+          className="absolute inset-0 hidden dark:block"
+          style={{
+            background:
+              "radial-gradient(130% 120% at 50% -10%, rgba(15,33,66,0.72), rgba(2,6,23,0.97) 62%), linear-gradient(180deg, #030918 0%, #020617 100%)",
+          }}
+        />
+        {/* Dark-mode: ambient brand glows (green + blue) */}
+        <div
+          className="absolute inset-0 hidden dark:block"
+          style={{
+            background:
+              "radial-gradient(42% 38% at 16% 24%, rgba(0,166,81,0.18), transparent 70%), radial-gradient(48% 44% at 86% 80%, rgba(37,99,235,0.22), transparent 72%)",
+          }}
+        />
+        {/* Dark-mode: subtle tech grid + diagonal network streaks (masked, no hard edges) */}
+        <div className="absolute inset-0 hidden dark:block hero-grid" />
+        <div className="absolute inset-0 hidden dark:block hero-streaks" />
+        {/* Dark-mode: soft top vignette for depth */}
+        <div className="absolute inset-x-0 top-0 hidden h-40 dark:block bg-gradient-to-b from-black/40 to-transparent" />
+
+        {/* Soft brand blobs (both modes, gentler in dark) */}
+        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl dark:bg-primary/[0.12]" />
+        <div className="absolute -right-6 top-20 h-64 w-64 rounded-full bg-secondary/20 blur-3xl dark:bg-secondary/[0.14]" />
 
         <div className="relative mx-auto flex min-h-[78svh] max-w-7xl items-center px-5 py-16 sm:px-8 lg:py-20">
-          <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="max-w-4xl"
             >
-              <span className="mb-6 inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white/[0.82] px-3 py-2 text-xs font-extrabold uppercase text-slate-700 shadow-sm backdrop-blur dark:border-white/18 dark:bg-white/10 dark:text-white">
-                <span className="h-2 w-2 rounded-full bg-primary" />
-                {t("homeHeroEyebrow")}
-              </span>
-              <h1 className="max-w-5xl text-5xl font-extrabold leading-[0.95] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+              <div className="mb-6 flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/[0.82] px-3 py-2 text-xs font-extrabold uppercase tracking-[0.24em] text-slate-700 shadow-sm backdrop-blur dark:border-white/18 dark:bg-white/10 dark:text-white">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  {t("homeHeroEyebrow")}
+                </span>
+                <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                  {t("homeHeroTrustedPartner")}
+                </span>
+              </div>
+              <h1
+                className={`max-w-5xl text-5xl font-extrabold text-slate-950 dark:text-white sm:text-6xl lg:text-7xl ${
+                  isRtl ? "leading-[1.15]" : "leading-[0.95]"
+                }`}
+              >
                 {t("companyName")}
-                <span className="block text-primary">
+                <span className={`mt-3 block text-gradient ${isRtl ? "pb-1" : ""}`}>
                   {t("heroHeadlineHighlight")}
                 </span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg font-medium leading-8 text-slate-600 dark:text-slate-200 sm:text-xl">
                 {homeAboutBrief}
               </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary-hover"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary-hover"
                 >
                   {t("contactUs")}
                   <ArrowRight className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />
                 </Link>
                 <a
                   href="#divisions"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white/[0.82] px-7 py-4 text-sm font-extrabold text-slate-950 shadow-sm backdrop-blur transition-colors hover:bg-white dark:border-white/24 dark:bg-white/10 dark:text-white dark:hover:bg-white/16"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white/[0.82] px-7 py-4 text-sm font-extrabold text-slate-950 shadow-sm backdrop-blur transition-colors hover:bg-white dark:border-white/24 dark:bg-white/10 dark:text-white dark:hover:bg-white/16"
                 >
                   {t("ourDivisions")}
                 </a>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-2 dark:border-slate-700 dark:bg-slate-900/70">
+                  {t("homeHeroPillLogistics")}
+                </span>
+                <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-2 dark:border-slate-700 dark:bg-slate-900/70">
+                  {t("homeHeroPillTechnology")}
+                </span>
+                <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-2 dark:border-slate-700 dark:bg-slate-900/70">
+                  {t("homeHeroPillDelivery")}
+                </span>
               </div>
             </motion.div>
 
@@ -157,40 +206,74 @@ export default function Home() {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-              className="elevated-surface rounded-lg border border-slate-200 bg-white/[0.82] p-5 backdrop-blur-md dark:border-white/14 dark:bg-slate-950/55"
+              className="relative"
             >
-              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-slate-200 bg-slate-200 dark:border-white/10 dark:bg-white/10">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="bg-white p-5 dark:bg-slate-950/55">
-                    <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 text-primary dark:bg-white/10">
-                      {stat.icon}
+              <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 blur-3xl dark:from-primary/25 dark:to-secondary/25" />
+              <div className="relative rounded-[2rem] border border-slate-200 bg-white/90 p-4 shadow-2xl shadow-slate-900/10 backdrop-blur-xl dark:border-white/[0.09] dark:bg-white/[0.04] dark:shadow-[0_40px_80px_-32px_rgba(0,0,0,0.85)] dark:ring-1 dark:ring-inset dark:ring-white/[0.04]">
+                <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 dark:border-white/[0.07] dark:bg-slate-900/60">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-primary">
+                        {t("homeSnapshotEyebrow")}
+                      </p>
+                      <h3 className="mt-2 text-2xl font-extrabold text-slate-950 dark:text-white">
+                        {t("homeSnapshotTitle")}
+                      </h3>
                     </div>
-                    <div className="text-3xl font-extrabold text-slate-950 dark:text-white">{stat.value}</div>
-                    <div className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                      {stat.label}
+                    <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                      {t("homeSnapshotSupport")}
                     </div>
                   </div>
-                ))}
+
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    {stats.map((stat) => (
+                      <div key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950/70">
+                        <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-white/10">
+                          {stat.icon}
+                        </div>
+                        <div className="text-3xl font-extrabold text-slate-950 dark:text-white">{stat.value}</div>
+                        <div className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                          {stat.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 rounded-2xl border border-primary/20 bg-primary/10 p-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                      <CheckCircle2 className="h-4 w-4" />
+                      {t("homeSnapshotProofTitle")}
+                    </div>
+                    <p className="mt-2 text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">
+                      {t("homeSnapshotProofDesc")}
+                    </p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section id="divisions" className="py-20 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="mb-12 grid gap-6 lg:grid-cols-[0.85fr_1fr] lg:items-end">
-            <div>
+      <section
+        id="divisions"
+        className="relative overflow-hidden bg-white py-20 transition-colors dark:bg-slate-950 sm:py-24 lg:py-28"
+      >
+        <div className="pointer-events-none absolute inset-0 hidden dark:block bg-[radial-gradient(circle_at_12%_18%,rgba(0,166,81,0.12),transparent_36%),radial-gradient(circle_at_88%_72%,rgba(30,58,138,0.18),transparent_42%)]" />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="mb-12 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
               <span className="mb-4 block text-sm font-extrabold uppercase text-primary">
                 {t("homeDivisionsEyebrow")}
               </span>
-              <h2 className="max-w-2xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
+              <h2 className="text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
                 {t("ourDivisions")}
               </h2>
             </div>
-            <p className="max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300 lg:justify-self-end">
-              {t("homeSubheadline")}
-            </p>
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
+              <span className="h-2.5 w-2.5 rounded-full bg-primary" />
+              {t("homeDivisionsImpactLabel")}
+            </div>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -204,7 +287,7 @@ export default function Home() {
               >
                 <Link
                   to={div.path}
-                  className="group elevated-surface block overflow-hidden rounded-lg border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-primary/40"
+                  className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-primary/40"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img
@@ -212,14 +295,14 @@ export default function Home() {
                       alt={div.title}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-slate-950/25 transition-colors group-hover:bg-slate-950/10" />
-                    <div className={`absolute start-4 top-4 h-11 w-11 rounded-md ${div.accent} flex items-center justify-center text-white shadow-lg`}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-slate-950/10 to-transparent" />
+                    <div className={`absolute start-4 top-4 h-11 w-11 rounded-xl ${div.accent} flex items-center justify-center text-white shadow-lg`}>
                       {React.cloneElement(div.icon as React.ReactElement, {
                         className: "h-5 w-5",
                       })}
                     </div>
                   </div>
-                  <div className="p-5">
+                  <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between gap-4">
                       <h3 className="text-xl font-extrabold text-slate-950 dark:text-white">
                         {div.title}
@@ -234,6 +317,10 @@ export default function Home() {
                     <p className="text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">
                       {div.desc}
                     </p>
+                    <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                      {t("learnMore")}
+                      <ArrowRight className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />
+                    </div>
                   </div>
                 </Link>
               </motion.div>
@@ -242,7 +329,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="surface-grid border-y border-slate-200 bg-slate-50 py-20 transition-colors dark:border-slate-800 dark:bg-slate-900/60 sm:py-24">
+      <section className="border-y border-slate-200 bg-slate-50 py-20 transition-colors dark:border-slate-800 dark:bg-slate-950 sm:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
             <img
@@ -305,7 +392,7 @@ export default function Home() {
       </section>
 
       {/* Map Location Section */}
-      <section className="py-20 sm:py-24">
+      <section className="border-y border-slate-200 bg-slate-50/70 py-20 transition-colors dark:border-slate-800 dark:bg-slate-950 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="mb-12 flex flex-col items-center text-center">
             <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-extrabold text-primary">
@@ -340,7 +427,7 @@ export default function Home() {
                 className="absolute bottom-4 end-4 z-10 flex items-center gap-2 rounded-md bg-white/90 px-3 py-2 text-xs font-bold text-slate-900 shadow-lg backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:bg-white dark:bg-slate-950/90 dark:text-white dark:hover:bg-slate-900"
               >
                 <MapPin className="h-3.5 w-3.5 text-primary" />
-                Open in Google Maps
+                {t("viewOnMap")}
               </a>
               <div className="pointer-events-none absolute inset-0 rounded-t-2xl ring-1 ring-inset ring-slate-900/10 dark:ring-white/10" />
             </div>
@@ -378,7 +465,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-5 pb-20 sm:px-8 sm:pb-24">
+      <section className="bg-white px-5 pb-20 transition-colors dark:bg-slate-950 sm:px-8 sm:pb-24">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-lg bg-slate-950">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"

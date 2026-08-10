@@ -107,3 +107,38 @@ img {
 .dark .elevated-surface {
   box-shadow: 0 24px 70px -42px rgba(0, 0, 0, 0.95);
 }
+
+/* Dark-mode hero ambience: deep navy canvas + faded tech grid.
+   Masked so the grid dissolves into the background with no hard edges. */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(148, 197, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 197, 255, 0.05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 42%,
+    #000 25%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 42%,
+    #000 25%,
+    transparent 78%
+  );
+}
+
+/* Thin diagonal "network" streaks — abstract logistics lines, barely visible. */
+.hero-streaks {
+  background-image:
+    linear-gradient(115deg, transparent 0 46%, rgba(0, 166, 81, 0.12) 46.4% 47%, transparent 47.4%),
+    linear-gradient(115deg, transparent 0 64%, rgba(37, 99, 235, 0.14) 64.4% 65%, transparent 65.4%),
+    linear-gradient(115deg, transparent 0 80%, rgba(148, 197, 255, 0.08) 80.4% 81%, transparent 81.4%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 60% 45%, #000 20%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 80% at 60% 45%, #000 20%, transparent 80%);
+}
+
+@media (max-width: 640px) {
+  .hero-streaks {
+    display: none;
+  }
+}
