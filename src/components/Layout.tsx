@@ -22,13 +22,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   const location = useLocation();
   const isDark = theme === "dark";
   const isRtl = language === "ar";
-  const themeLabel = isDark
-    ? isRtl
-      ? "التبديل إلى الوضع الفاتح"
-      : "Switch to light mode"
-    : isRtl
-      ? "التبديل إلى الوضع الداكن"
-      : "Switch to dark mode";
+  const themeLabel = t(isDark ? "themeSwitchToLight" : "themeSwitchToDark");
+  const nextLanguage = language === "ar" ? "en" : "ar";
+  const nextLanguageLabel = t(
+    nextLanguage === "en" ? "switchToEnglish" : "switchToArabic",
+  );
 
   React.useEffect(() => {
     document.title = t("companyName");
@@ -37,7 +35,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   }, [isRtl, language, t]);
 
   const toggleLang = () => {
-    setLanguage(isRtl ? "en" : "ar");
+    setLanguage(nextLanguage);
   };
 
   const navLinks = [
@@ -82,7 +80,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                 {t("companyName")}
               </span>
               <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                {isRtl ? "Malazc" : "ملاذك"}
+                {t("companyNameAlt")}
               </span>
             </span>
           </Link>
@@ -118,7 +116,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <button
               onClick={toggleLang}
               className="inline-flex h-10 items-center gap-2 rounded-md border border-slate-200 px-3 text-sm font-bold text-slate-700 transition-colors hover:border-secondary/40 hover:bg-secondary/5 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-900"
-              title="Switch language"
+              title={t("switchLanguage")}
             >
               <span className={isRtl ? "opacity-40" : ""}>EN</span>
               <span className="h-3 w-px bg-slate-300 dark:bg-slate-700" />
@@ -146,7 +144,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-900"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={t(isMobileMenuOpen ? "closeMenu" : "openMenu")}
             >
               {isMobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -187,7 +185,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                     onClick={toggleLang}
                     className="rounded-md border border-slate-200 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-800 dark:text-slate-200"
                   >
-                    {isRtl ? "English" : "العربية"}
+                    {nextLanguageLabel}
                   </button>
                   <Link
                     to="/contact"
@@ -238,7 +236,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                     {t("companyName")}
                   </span>
                   <span className="text-xs font-semibold text-slate-400">
-                    {isRtl ? "Malazc" : "ملاذك"}
+                    {t("companyNameAlt")}
                   </span>
                 </span>
               </Link>
@@ -288,9 +286,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-6 text-xs font-semibold uppercase text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {new Date().getFullYear()} {t("companyName")}.{" "}
-              {isRtl ? "كل الحقوق محفوظة." : "All rights reserved."}
+              {t("allRightsReserved")}
             </p>
-            <p>{isRtl ? "شريك حلول متكاملة" : "Integrated Solutions Partner"}</p>
+            <p>{t("integratedSolutionsPartner")}</p>
           </div>
         </div>
       </footer>

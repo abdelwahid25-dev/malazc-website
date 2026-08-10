@@ -150,7 +150,7 @@ export default function Contact() {
       <section className="relative overflow-hidden border-b border-slate-200 bg-slate-950 dark:border-slate-800">
         <img
           src="https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?q=80&w=2070&auto=format&fit=crop"
-          alt="Riyadh business district"
+          alt={t("contactHeroImageAlt")}
           className="absolute inset-0 h-full w-full object-cover opacity-[0.38]"
         />
         <div className="absolute inset-0 bg-slate-950/70" />
@@ -178,7 +178,7 @@ export default function Contact() {
                 {t("location")}
               </h3>
               <p className="mt-2 font-medium text-slate-600 dark:text-slate-300">
-                Riyadh, Saudi Arabia
+                {t("riyadhSaudiArabia")}
               </p>
             </div>
 
@@ -187,7 +187,7 @@ export default function Contact() {
                 <Phone className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-extrabold text-slate-950 dark:text-white">
-                {isRtl ? "الهاتف" : "Phone"}
+                {t("phoneTitle")}
               </h3>
               <p className="mt-2 font-medium text-slate-600 dark:text-slate-300" dir="ltr">
                 {t("phoneNumbers")}
@@ -208,7 +208,7 @@ export default function Contact() {
                 <Mail className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-extrabold text-slate-950 dark:text-white">
-                {isRtl ? "البريد الإلكتروني" : "Email"}
+                {t("emailTitle")}
               </h3>
               <p className="mt-2 font-medium text-slate-600 dark:text-slate-300">
                 {t("email")}
@@ -370,7 +370,7 @@ export default function Contact() {
           <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-slate-950 dark:border-slate-800">
             <img
               src="https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?q=80&w=2070&auto=format&fit=crop"
-              alt="Riyadh skyline"
+              alt={t("contactMapImageAlt")}
               className="h-80 w-full object-cover opacity-[0.48]"
             />
             <div className="absolute inset-0 bg-slate-950/35" />
@@ -378,9 +378,9 @@ export default function Contact() {
               <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-primary" />
                 <div>
-                  <p className="text-lg font-extrabold">Riyadh, Saudi Arabia</p>
+                  <p className="text-lg font-extrabold">{t("riyadhSaudiArabia")}</p>
                   <p className="text-sm font-medium text-slate-300">
-                    {isRtl ? "نخدم عملاءنا في المملكة" : "Serving clients across the Kingdom"}
+                    {t("contactMapDesc")}
                   </p>
                 </div>
               </div>

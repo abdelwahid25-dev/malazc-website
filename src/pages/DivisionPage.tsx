@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { type TranslationKey } from "../data/translations";
 
 interface DivisionPageProps {
   id: "logistics" | "it" | "contracting" | "marketing";
@@ -18,15 +19,17 @@ export default function DivisionPage({
   const isRtl = language === "ar";
 
   const titleKey =
-    `${id}Title` as keyof (typeof import("../data/translations").translations)["en"];
+    `${id}Title` as TranslationKey;
   const descKey =
-    `${id}Desc` as keyof (typeof import("../data/translations").translations)["en"];
+    `${id}Desc` as TranslationKey;
   const featuresKey =
-    `${id}Features` as keyof (typeof import("../data/translations").translations)["en"];
+    `${id}Features` as TranslationKey;
 
-  const valuePoints = isRtl
-    ? ["تنفيذ واضح", "متابعة مباشرة", "جودة قابلة للقياس"]
-    : ["Clear execution", "Direct follow-up", "Measurable quality"];
+  const valuePoints = [
+    t("divisionValuePoint1"),
+    t("divisionValuePoint2"),
+    t("divisionValuePoint3"),
+  ];
 
   return (
     <div className="bg-white transition-colors dark:bg-slate-950">
@@ -61,7 +64,7 @@ export default function DivisionPage({
               {t("learnMore")}
             </span>
             <h2 className="max-w-xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
-              {isRtl ? "خدمة مصممة لتناسب عملك." : "A service shaped around your operation."}
+              {t("divisionValueTitle")}
             </h2>
             <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
               {t(featuresKey)}

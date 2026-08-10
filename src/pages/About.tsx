@@ -2,8 +2,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { CheckCircle2, Flag, Target } from "lucide-react";
 
 export default function About() {
-  const { t, language } = useLanguage();
-  const isRtl = language === "ar";
+  const { t } = useLanguage();
   const goals = [t("goal1"), t("goal2"), t("goal3")];
 
   return (
@@ -11,7 +10,7 @@ export default function About() {
       <section className="relative overflow-hidden border-b border-slate-200 bg-slate-950 dark:border-slate-800">
         <img
           src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074&auto=format&fit=crop"
-          alt="Malazc business team"
+          alt={t("aboutHeroImageAlt")}
           className="absolute inset-0 h-full w-full object-cover opacity-[0.34]"
         />
         <div className="absolute inset-0 bg-slate-950/68" />
@@ -63,16 +62,14 @@ export default function About() {
           <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1fr] lg:items-end">
             <div>
               <span className="mb-4 block text-sm font-extrabold uppercase text-primary">
-                {isRtl ? "التركيز" : "Focus"}
+                {t("aboutGoalsEyebrow")}
               </span>
               <h2 className="text-4xl font-extrabold text-slate-950 dark:text-white sm:text-5xl">
                 {t("goalsTitle")}
               </h2>
             </div>
             <p className="max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
-              {isRtl
-                ? "نحو نموذج خدمات موحد يخدم الشركات بسرعة وجودة ووضوح."
-                : "A unified service model for companies that need speed, quality, and clear ownership."}
+              {t("aboutGoalsDesc")}
             </p>
           </div>
 

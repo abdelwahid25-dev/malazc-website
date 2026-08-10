@@ -1,15 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { translations, Language } from "../data/translations";
+import { translations, type Language, type TranslationKey } from "../data/translations";
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: keyof (typeof translations)["en"]) => string;
+  t: (key: TranslationKey) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined,
 );
+
+const isLanguage = (value: string | null): value is Language =>
+  value === "en" || value === "ar";
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -19,8 +22,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   // Initialize lang and dir on mount
   useEffect(() => {
     // Check if user has a preference in localStorage or default to 'ar' maybe? Let's default to 'ar' since it's a Saudi company
-    const savedLang = localStorage.getItem("malazc_lang") as Language;
-    if (savedLang) {
+    const savedLang = localStorage.getItem("malazc_lang");
+    if (isLanguage(savedLang)) {
       setLanguageState(savedLang);
     } else {
       setLanguageState("ar");
@@ -38,7 +41,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
   }, [language]);
 
-  const t = (key: keyof (typeof translations)["en"]) => {
+  const t = (key: TranslationKey) => {
     return translations[language][key] || translations["en"][key] || key;
   };
 

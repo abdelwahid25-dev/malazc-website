@@ -22,22 +22,22 @@ export default function Home() {
 
   const stats = [
     {
-      label: isRtl ? "سنوات من التميز" : "Years of Excellence",
+      label: t("statsYearsLabel"),
       value: "10+",
       icon: <Award className="h-5 w-5" />,
     },
     {
-      label: isRtl ? "مشروع مكتمل" : "Successful Projects",
+      label: t("statsProjectsLabel"),
       value: "100+",
       icon: <CheckCircle2 className="h-5 w-5" />,
     },
     {
-      label: isRtl ? "عميل سعيد" : "Happy Clients",
+      label: t("statsClientsLabel"),
       value: "50+",
       icon: <Users className="h-5 w-5" />,
     },
     {
-      label: isRtl ? "مدينة مغطاة" : "Cities Covered",
+      label: t("statsCitiesLabel"),
       value: "15+",
       icon: <Globe className="h-5 w-5" />,
     },
@@ -98,16 +98,14 @@ export default function Home() {
       icon: <Flag className="h-5 w-5" />,
     },
   ];
-  const homeAboutBrief = isRtl
-    ? "ملاذك شركة رائدة تقدم حلولاً متكاملة عبر القطاعات الرئيسية. نحن ملتزمون بتقديم التميز والموثوقية لدفع عجلة نمو أعمالك."
-    : "Malazc is a premier company offering integrated solutions across key sectors. We are dedicated to providing excellence and reliability to power your business growth.";
+  const homeAboutBrief = t("homeAboutBrief");
 
   return (
     <div className="bg-white transition-colors dark:bg-slate-950">
       <section className="relative min-h-[78svh] overflow-hidden bg-slate-50 transition-colors dark:bg-slate-950">
         <img
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
-          alt="Malazc integrated solutions workspace"
+          alt={t("homeHeroImageAlt")}
           className="absolute inset-0 h-full w-full object-cover opacity-20 saturate-75 dark:opacity-100 dark:saturate-100"
         />
         <div className="absolute inset-0 bg-white/[0.86] dark:bg-slate-950/72" />
@@ -124,12 +122,12 @@ export default function Home() {
             >
               <span className="mb-6 inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white/[0.82] px-3 py-2 text-xs font-extrabold uppercase text-slate-700 shadow-sm backdrop-blur dark:border-white/18 dark:bg-white/10 dark:text-white">
                 <span className="h-2 w-2 rounded-full bg-primary" />
-                {isRtl ? "شركة متعددة القطاعات" : "Multi-sector company"}
+                {t("homeHeroEyebrow")}
               </span>
               <h1 className="max-w-5xl text-5xl font-extrabold leading-[0.95] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
                 {t("companyName")}
                 <span className="block text-primary">
-                  {t("heroHeadline").split("–")[1]?.trim() || t("homeSubheadline")}
+                  {t("heroHeadlineHighlight")}
                 </span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg font-medium leading-8 text-slate-600 dark:text-slate-200 sm:text-xl">
@@ -181,7 +179,7 @@ export default function Home() {
           <div className="mb-12 grid gap-6 lg:grid-cols-[0.85fr_1fr] lg:items-end">
             <div>
               <span className="mb-4 block text-sm font-extrabold uppercase text-primary">
-                {isRtl ? "ماذا نفعل" : "Services We Provide"}
+                {t("homeDivisionsEyebrow")}
               </span>
               <h2 className="max-w-2xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
                 {t("ourDivisions")}
@@ -246,17 +244,15 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
             <img
               src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074&auto=format&fit=crop"
-              alt="Malazc team collaboration"
+              alt={t("homeTeamImageAlt")}
               className="aspect-[5/4] h-full w-full object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-slate-950/72 p-5 text-white backdrop-blur-sm">
               <div className="text-sm font-extrabold uppercase text-primary">
-                {isRtl ? "موثوق محلياً" : "Trusted Locally"}
+                {t("homeTrustEyebrow")}
               </div>
               <p className="mt-1 text-sm text-slate-200">
-                {isRtl
-                  ? "نموذج واحد يجمع الخدمات التشغيلية والرقمية."
-                  : "One operating model across physical and digital services."}
+                {t("homeTrustText")}
               </p>
             </div>
           </div>
@@ -268,7 +264,7 @@ export default function Home() {
             <h2 className="max-w-2xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
               {t("companyName")}{" "}
               <span className="text-secondary dark:text-primary">
-                {isRtl ? "تبني حلولاً تعمل بجدية." : "builds solutions that work."}
+                {t("homeAboutHeadlineSuffix")}
               </span>
             </h2>
             <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
@@ -309,21 +305,17 @@ export default function Home() {
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-lg bg-slate-950">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
-            alt="Business district architecture"
+            alt={t("homeCtaImageAlt")}
             className="absolute inset-0 h-full w-full object-cover opacity-[0.32]"
           />
           <div className="absolute inset-0 bg-slate-950/62" />
           <div className="relative grid gap-8 px-6 py-14 sm:px-10 lg:grid-cols-[1fr_auto] lg:items-center lg:px-14">
             <div>
               <h2 className="max-w-3xl text-3xl font-extrabold leading-tight text-white sm:text-5xl">
-                {isRtl
-                  ? "جاهز لبناء مستقبلك الرقمي والتشغيلي؟"
-                  : "Ready to build your digital and operational future?"}
+                {t("homeCtaTitle")}
               </h2>
               <p className="mt-4 max-w-2xl text-base font-medium leading-8 text-slate-300">
-                {isRtl
-                  ? "ابدأ محادثة مباشرة مع فريق ملاذك واختر القسم المناسب لاحتياجك."
-                  : "Start a focused conversation with Malazc and choose the division that matches your need."}
+                {t("homeCtaDesc")}
               </p>
             </div>
             <Link
