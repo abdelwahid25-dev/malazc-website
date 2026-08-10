@@ -9,6 +9,9 @@ import {
   Globe,
   HardHat,
   Laptop,
+  Mail,
+  MapPin,
+  Phone,
   Target,
   TrendingUp,
   Truck,
@@ -301,7 +304,81 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-5 py-20 sm:px-8 sm:py-24">
+      {/* Map Location Section */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="mb-12 flex flex-col items-center text-center">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-extrabold text-primary">
+              <MapPin className="h-4 w-4" />
+              {t("location")}
+            </span>
+            <h2 className="max-w-2xl text-4xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-5xl">
+              {t("dammamSaudiArabia")}
+            </h2>
+            <p className="mt-4 max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300">
+              {t("contactMapDesc")}
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-950">
+            <div className="group relative aspect-video w-full sm:aspect-[21/9]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3572.5139996!2d50.1241752!3d26.4526964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49fba82967fb93%3A0x4d51e09c13d0590f!2z2LQYsdmD2Kkg2YXZhNUY0YQg2KfZhNix2YjYp9ivINin2YTYqtis2KfYsdmK2Kk!5e0!3m2!1sen!2ssa!4v1723267200000!5m2!1sen!2ssa"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 h-full w-full grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 dark:invert-[0.9] dark:hue-rotate-180 dark:group-hover:invert-0 dark:group-hover:hue-rotate-0"
+              />
+              {/* Open in Maps overlay button */}
+              <a
+                href="https://maps.app.goo.gl/njvVUhNLGmk3Y7aW6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-4 end-4 z-10 flex items-center gap-2 rounded-md bg-white/90 px-3 py-2 text-xs font-bold text-slate-900 shadow-lg backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:bg-white dark:bg-slate-950/90 dark:text-white dark:hover:bg-slate-900"
+              >
+                <MapPin className="h-3.5 w-3.5 text-primary" />
+                Open in Google Maps
+              </a>
+              <div className="pointer-events-none absolute inset-0 rounded-t-2xl ring-1 ring-inset ring-slate-900/10 dark:ring-white/10" />
+            </div>
+            
+            <div className="grid grid-cols-1 divide-y divide-slate-200 dark:divide-slate-800 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              <div className="flex items-center gap-4 p-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <MapPin className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">{t("navContact") || "Headquarters"}</div>
+                  <div className="font-bold text-slate-950 dark:text-white">{t("dammamSaudiArabia")}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Phone className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">{t("phoneTitle") || "Call Us"}</div>
+                  <div className="font-bold text-slate-950 dark:text-white" dir="ltr">{t("phoneNumbers")}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Mail className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">{t("emailTitle") || "Email"}</div>
+                  <div className="font-bold text-slate-950 dark:text-white">{t("email")}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 pb-20 sm:px-8 sm:pb-24">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-lg bg-slate-950">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"

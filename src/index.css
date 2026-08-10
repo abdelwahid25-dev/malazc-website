@@ -1,6 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
+/* Sticky navbar is 72px tall. This ensures any hash/anchor scroll
+   lands below the navbar instead of being hidden behind it. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {

@@ -120,10 +120,10 @@ export default function Contact() {
       );
       const body = encodeURIComponent(
         `Name: ${formData.name}\n` +
-          `Phone: ${formData.phone}\n` +
-          `Email: ${formData.email}\n` +
-          `Division: ${formData.division}\n\n` +
-          `Message:\n${formData.message}`,
+        `Phone: ${formData.phone}\n` +
+        `Email: ${formData.email}\n` +
+        `Division: ${formData.division}\n\n` +
+        `Message:\n${formData.message}`,
       );
 
       window.location.href = `mailto:husam.dafallh@malazc.com?subject=${subject}&body=${body}`;
@@ -178,8 +178,18 @@ export default function Contact() {
                 {t("location")}
               </h3>
               <p className="mt-2 font-medium text-slate-600 dark:text-slate-300">
-                {t("riyadhSaudiArabia")}
+                {t("dammamSaudiArabia")}
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  document.getElementById("map-section")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="mt-5 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-extrabold text-white transition-colors hover:bg-primary-hover"
+              >
+                <MapPin className="h-4 w-4" />
+                {t("viewOnMap")}
+              </button>
             </div>
 
             <div className="elevated-surface rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
@@ -284,11 +294,10 @@ export default function Contact() {
                     onBlur={(e) => validatePhone(e.target.value)}
                     required
                     disabled={status === "sending" || status === "mailto"}
-                    className={`${inputClass} ${
-                      phoneError
-                        ? "border-red-500 focus:border-red-500 focus:ring-red-200"
-                        : ""
-                    } ${isRtl ? "text-right" : "text-left"}`}
+                    className={`${inputClass} ${phoneError
+                      ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+                      : ""
+                      } ${isRtl ? "text-right" : "text-left"}`}
                     placeholder={t("formPhone")}
                     dir="ltr"
                   />
@@ -366,22 +375,30 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="mx-auto mt-8 max-w-7xl px-5 sm:px-8">
+        <div id="map-section" className="mx-auto mt-8 max-w-7xl px-5 sm:px-8">
           <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-slate-950 dark:border-slate-800">
-            <img
-              src="https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?q=80&w=2070&auto=format&fit=crop"
-              alt={t("contactMapImageAlt")}
-              className="h-80 w-full object-cover opacity-[0.48]"
-            />
-            <div className="absolute inset-0 bg-slate-950/35" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-              <div className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="text-lg font-extrabold">{t("riyadhSaudiArabia")}</p>
-                  <p className="text-sm font-medium text-slate-300">
-                    {t("contactMapDesc")}
-                  </p>
+            <div className="relative h-80 w-full">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3572.5139996!2d50.1241752!3d26.4526964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49fba82967fb93%3A0x4d51e09c13d0590f!2z2LQYsdmD2Kkg2YXZhNUY0YQg2KfZhNix2YjYp9ivINin2YTYqtis2KfYsdmK2Kk!5e0!3m2!1sen!2ssa!4v1723267200000!5m2!1sen!2ssa"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 h-full w-full grayscale transition-all duration-700 ease-in-out hover:grayscale-0 dark:invert-[0.9] dark:hue-rotate-180 dark:hover:invert-0 dark:hover:hue-rotate-0"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-slate-950/20" />
+              <div className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent p-6 text-white">
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-sm font-semibold text-primary">{t("location")}</p>
+                    <p className="text-lg font-extrabold">{t("dammamSaudiArabia")}</p>
+                    <p className="text-sm font-medium text-slate-300">
+                      {t("contactMapDesc")}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -77,8 +77,8 @@
   "formMessage": "رسالتك",
   "formSubmit": "إرسال الرسالة",
   "formPhoneError": "يرجى إدخال رقم هاتف صحيح (مثال: 05XXXXXXXX أو +9665XXXXXXXX)",
-  "location": "المملكة العربية السعودية",
-  "riyadhSaudiArabia": "الرياض، المملكة العربية السعودية",
+  "location": "الشاطئ الشرقي، الدمام 32414",
+  "dammamSaudiArabia": "شركة ملاذ الرواد التجارية",
   "phoneTitle": "الهاتف",
   "phoneNumbers": "+966 58 111 7181",
   "emailTitle": "البريد الإلكتروني",
@@ -92,5 +92,6 @@
   "formMailtoDesc": "جاري تحويلك إلى تطبيق البريد الإلكتروني لإرسال الرسالة...",
   "contactHeroImageAlt": "حي الأعمال في الرياض",
   "contactMapImageAlt": "أفق مدينة الرياض",
-  "contactMapDesc": "نخدم عملاءنا في المملكة"
+  "contactMapDesc": "نخدم عملاءنا في المملكة",
+  "viewOnMap": "عرض على الخريطة"
 }
