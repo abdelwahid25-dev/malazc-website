@@ -386,7 +386,7 @@ export default function Contact() {
                 allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 h-full w-full grayscale transition-all duration-700 ease-in-out hover:grayscale-0 dark:invert-[0.9] dark:hue-rotate-180 dark:hover:invert-0 dark:hover:hue-rotate-0"
+                className="absolute inset-0 h-full w-full"
               />
               <div className="pointer-events-none absolute inset-0 bg-slate-950/20" />
               <div className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent p-6 text-white">
