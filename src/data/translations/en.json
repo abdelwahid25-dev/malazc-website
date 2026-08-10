@@ -77,8 +77,8 @@
   "formMessage": "Your Message",
   "formSubmit": "Send Message",
   "formPhoneError": "Please enter a valid phone number (e.g., +9665xxxxxxxx or 05xxxxxxxx)",
-  "location": "Saudi Arabia",
-  "riyadhSaudiArabia": "Riyadh, Saudi Arabia",
+  "location": "Ash Shati Ash Sharqi, Dammam 32414",
+  "dammamSaudiArabia": "Malazc – شركة ملاذ الرواد التجارية",
   "phoneTitle": "Phone",
   "phoneNumbers": "+966 58 111 7181",
   "emailTitle": "Email",
@@ -92,5 +92,6 @@
   "formMailtoDesc": "Redirecting to your email client to send the message...",
   "contactHeroImageAlt": "Riyadh business district",
   "contactMapImageAlt": "Riyadh skyline",
-  "contactMapDesc": "Serving clients across the Kingdom"
+  "contactMapDesc": "Serving clients across the Kingdom",
+  "viewOnMap": "View on Map"
 }
