@@ -330,7 +330,7 @@ export default function Home() {
                 allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 h-full w-full grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 dark:invert-[0.9] dark:hue-rotate-180 dark:group-hover:invert-0 dark:group-hover:hue-rotate-0"
+                className="absolute inset-0 h-full w-full"
               />
               {/* Open in Maps overlay button */}
               <a
