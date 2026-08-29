@@ -297,7 +297,7 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-slate-950/10 to-transparent" />
                     <div className={`absolute start-4 top-4 h-11 w-11 rounded-xl ${div.accent} flex items-center justify-center text-white shadow-lg`}>
-                      {React.cloneElement(div.icon as React.ReactElement, {
+                      {React.cloneElement(div.icon as React.ReactElement<{ className?: string }>, {
                         className: "h-5 w-5",
                       })}
                     </div>

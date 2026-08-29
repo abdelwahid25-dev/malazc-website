@@ -45,10 +45,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
     { name: t("navIT"), path: "/it" },
     { name: t("navContracting"), path: "/contracting" },
     { name: t("navMarketing"), path: "/marketing" },
+    { name: t("navOrganization"), path: "/organization" },
+    { name: t("navMedia"), path: "/media" },
   ];
 
   const footerLinks = [
     { name: t("navAbout"), path: "/about" },
+    { name: t("navOrganization"), path: "/organization" },
+    { name: t("navMedia"), path: "/media" },
     { name: t("navLogistics"), path: "/logistics" },
     { name: t("navIT"), path: "/it" },
     { name: t("navContracting"), path: "/contracting" },

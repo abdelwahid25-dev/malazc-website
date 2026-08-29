@@ -11,6 +11,8 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Organization from "./pages/Organization";
+import Media from "./pages/Media";
 import DivisionPage from "./pages/DivisionPage";
 import { Truck, Laptop, HardHat, TrendingUp } from "lucide-react";
 
@@ -65,6 +67,8 @@ export default function App() {
                 }
               />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/organization" element={<Organization />} />
+              <Route path="/media" element={<Media />} />
             </Routes>
           </Layout>
         </BrowserRouter>
