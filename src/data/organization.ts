@@ -1,12 +1,13 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Briefcase,
-  Cpu,
   DollarSign,
   Megaphone,
-  Truck,
+  Scale,
+  ShoppingCart,
   Users,
 } from "lucide-react";
+import { employeeImages } from "./employeeImages";
 import type { Language } from "./translations";
 
 /**
@@ -35,10 +36,9 @@ export type DepartmentId =
   | "executive"
   | "operations"
   | "finance"
-  | "hr"
-  | "marketing"
-  | "technology"
-  | "logistics";
+  | "legal-administrative"
+  | "procurement"
+  | "sales";
 
 export interface Department {
   id: DepartmentId;
@@ -58,7 +58,7 @@ export interface Employee {
   level: OrgLevel;
   /** id of the employee this person reports to, or null for the top of the chart. */
   managerId: string | null;
-  image: string;
+  image?: string | null;
   description: Localized;
   email?: string;
   phone?: string;
@@ -78,8 +78,8 @@ export const departments: Department[] = [
     id: "executive",
     name: { en: "Executive Management", ar: "الإدارة التنفيذية" },
     description: {
-      en: "Company leadership setting strategy and direction.",
-      ar: "قيادة الشركة المسؤولة عن الاستراتيجية والتوجه العام.",
+      en: "Leadership and strategic direction for Logistics Services.",
+      ar: "القيادة والتوجيه الاستراتيجي لقسم الخدمات اللوجستية.",
     },
     icon: Briefcase,
   },
@@ -87,8 +87,8 @@ export const departments: Department[] = [
     id: "operations",
     name: { en: "Operations", ar: "العمليات" },
     description: {
-      en: "Day-to-day execution and service delivery.",
-      ar: "التنفيذ اليومي وتقديم الخدمات.",
+      en: "Operational execution and service delivery.",
+      ar: "التنفيذ التشغيلي وتقديم الخدمات.",
     },
     icon: Users,
   },
@@ -102,180 +102,125 @@ export const departments: Department[] = [
     icon: DollarSign,
   },
   {
-    id: "hr",
-    name: { en: "Human Resources", ar: "الموارد البشرية" },
+    id: "legal-administrative",
+    name: { en: "Legal & Administrative Affairs", ar: "الشؤون القانونية والإدارية" },
     description: {
-      en: "People, talent and organizational development.",
-      ar: "الموظفون والمواهب والتطوير المؤسسي.",
+      en: "Legal, administrative and governance support.",
+      ar: "الدعم القانوني والإداري والحوكمة.",
     },
-    icon: Users,
+    icon: Scale,
   },
   {
-    id: "marketing",
-    name: { en: "Sales & Marketing", ar: "المبيعات والتسويق" },
+    id: "procurement",
+    name: { en: "Procurement", ar: "المشتريات" },
     description: {
-      en: "Brand, growth and client relationships.",
-      ar: "العلامة التجارية والنمو وعلاقات العملاء.",
+      en: "Sourcing, purchasing and supplier coordination.",
+      ar: "التوريد والشراء والتنسيق مع الموردين.",
+    },
+    icon: ShoppingCart,
+  },
+  {
+    id: "sales",
+    name: { en: "Sales", ar: "المبيعات" },
+    description: {
+      en: "Client engagement and business development.",
+      ar: "التواصل مع العملاء وتطوير الأعمال.",
     },
     icon: Megaphone,
   },
-  {
-    id: "technology",
-    name: { en: "Technology", ar: "التقنية" },
-    description: {
-      en: "Digital platforms, security and innovation.",
-      ar: "المنصات الرقمية والأمن والابتكار.",
-    },
-    icon: Cpu,
-  },
-  {
-    id: "logistics",
-    name: { en: "Logistics", ar: "الخدمات اللوجستية" },
-    description: {
-      en: "Fleet, warehousing and distribution.",
-      ar: "الأسطول والمستودعات والتوزيع.",
-    },
-    icon: Truck,
-  },
 ];
 
-const placeholderBio: Localized = {
-  en: "Placeholder professional summary. Replace this text with a short biography describing responsibilities, experience and focus areas.",
-  ar: "نبذة مهنية مؤقتة. استبدل هذا النص بسيرة مختصرة توضح المسؤوليات والخبرات ومجالات التركيز.",
-};
-
 export const employees: Employee[] = [
-  // ---- Leadership ----------------------------------------------------------
+  // Department structure transcribed from the supplied Logistics Services chart.
   {
     id: "emp-001",
-    name: { en: "Hussam Dafallah Fadl Al-Mawla mohammed Ali", ar: "حسام دفع الله فضل المولى محمد علي " },
-    position: { en: "Chief Executive Officer", ar: "الرئيس التنفيذي" },
+    name: { en: "Hussam Dafallah", ar: "حسام دفع الله" },
+    position: { en: "Executive Manager", ar: "المدير التنفيذي" },
     departmentId: "executive",
     level: "leadership",
     managerId: null,
-    image: portrait("photo-1560250097-0b93528c311a"),
-    description: placeholderBio,
-    email: "ceo@example.com",
-    phone: "+966 5X XXX XXXX",
+    image: employeeImages.hussamDafallah,
+    description: {
+      en: "Leads the company's strategic direction, oversees business performance, and ensures every department works together to deliver reliable, high-quality logistics services.",
+      ar: "يقود التوجه الاستراتيجي للشركة، ويشرف على أداء الأعمال، ويضمن تكامل جميع الإدارات لتقديم خدمات لوجستية موثوقة وعالية الجودة.",
+    },
+    email: "hussam.dafallah@malazc.com",
+    phone: "+966 581117181",
   },
-  // ---- Executive management (report to CEO) --------------------------------
   {
     id: "emp-002",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Chief Operating Officer", ar: "رئيس العمليات" },
-    departmentId: "operations",
-    level: "leadership",
+    name: { en: "Yahya Shukri", ar: "يحيى شكري" },
+    position: { en: "Sales Manager", ar: "مدير المبيعات" },
+    departmentId: "sales",
+    level: "head",
     managerId: "emp-001",
-    image: portrait("photo-1519085360753-af0119f7cbe7"),
-    description: placeholderBio,
-    email: "coo@example.com",
+    image: employeeImages.yahiaShkri,
+    description: {
+      en: "Develops client relationships, identifies new business opportunities, and leads sales activities to support sustainable company growth.",
+      ar: "يطور علاقات العملاء، ويحدد فرص الأعمال الجديدة، ويقود أنشطة المبيعات لدعم نمو الشركة المستدام.",
+    },
+    phone: "+966 539995170",
+    email: "yahya.shukri@malazc.com",
   },
   {
     id: "emp-003",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Chief Financial Officer", ar: "المدير المالي" },
-    departmentId: "finance",
-    level: "leadership",
+    name: { en: "Bashar Mohammed", ar: "بشار محمد" },
+    position: { en: "Procurement Manager", ar: "مدير المشتريات" },
+    departmentId: "procurement",
+    level: "head",
     managerId: "emp-001",
-    image: portrait("photo-1573496359142-b8d87734a5a2"),
-    description: placeholderBio,
-    email: "cfo@example.com",
+    image: employeeImages.basharMohammed,
+    description: {
+      en: "Manages sourcing, supplier relationships, purchasing processes, and cost-effective procurement to support smooth operations.",
+      ar: "يدير التوريد وعلاقات الموردين وإجراءات الشراء والمشتريات الفعالة من حيث التكلفة لدعم سير العمليات بسلاسة.",
+    },
+    phone: "+966 551465854",
+    email: "bashar.mohammed@malazc.com",
   },
-  // ---- Department heads -----------------------------------------------------
   {
     id: "emp-004",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Human Resources Manager", ar: "مدير الموارد البشرية" },
-    departmentId: "hr",
+    name: { en: "Abdulhafeez Mohammed Irshad", ar: "عبدالحفيظ محمد إرشاد" },
+    position: { en: "Operations Manager", ar: "مدير التشغيل" },
+    departmentId: "operations",
     level: "head",
-    managerId: "emp-002",
-    image: portrait("photo-1580489944761-15a19d654956"),
-    description: placeholderBio,
-    email: "hr@example.com",
+    managerId: "emp-001",
+    image: employeeImages.abdulHafeez,
+    description: {
+      en: "Oversees daily logistics operations, coordinates service delivery, and maintains operational quality, safety, and efficiency.",
+      ar: "يشرف على العمليات اللوجستية اليومية، وينسق تقديم الخدمات، ويحافظ على الجودة التشغيلية والسلامة والكفاءة.",
+    },
+    phone: "+966 544175455",
+    email: "abdul.hafeez@malazc.com",
   },
   {
     id: "emp-005",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Marketing Manager", ar: "مدير التسويق" },
-    departmentId: "marketing",
+    name: { en: "Faris Abu Alama", ar: "فارس ابوعلامة" },
+    position: { en: "Finance Manager", ar: "مدير المالية" },
+    departmentId: "finance",
     level: "head",
-    managerId: "emp-002",
-    image: portrait("photo-1494790108377-be9c29b29330"),
-    description: placeholderBio,
-    email: "marketing@example.com",
+    managerId: "emp-001",
+    image: employeeImages.farisAbualama,
+    description: {
+      en: "Leads financial planning, reporting, budgeting, and internal controls to support sound decisions and long-term financial stability.",
+      ar: "يقود التخطيط المالي وإعداد التقارير والميزانيات والرقابة الداخلية لدعم القرارات السليمة والاستقرار المالي على المدى الطويل.",
+    },
+    phone: "+966 542410428",
+    email: "faris.abualama@malazc.com",
   },
   {
     id: "emp-006",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Technology Manager", ar: "مدير التقنية" },
-    departmentId: "technology",
+    name: { en: "Fatima Ibrahim", ar: "فاطمة إبراهيم" },
+    position: { en: "Legal & Administrative Affairs Manager", ar: "مدير الشؤون القانونية والإدارية" },
+    departmentId: "legal-administrative",
     level: "head",
-    managerId: "emp-002",
-    image: portrait("photo-1500648767791-00dcc994a43e"),
-    description: placeholderBio,
-    email: "tech@example.com",
-  },
-  {
-    id: "emp-007",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Logistics Manager", ar: "مدير الخدمات اللوجستية" },
-    departmentId: "logistics",
-    level: "head",
-    managerId: "emp-002",
-    image: portrait("photo-1506794778202-cad84cf45f1d"),
-    description: placeholderBio,
-    email: "logistics@example.com",
-  },
-  // ---- Team members ---------------------------------------------------------
-  {
-    id: "emp-008",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "HR Specialist", ar: "أخصائي موارد بشرية" },
-    departmentId: "hr",
-    level: "member",
-    managerId: "emp-004",
-    image: portrait("photo-1544005313-94ddf0286df2"),
-    description: placeholderBio,
-  },
-  {
-    id: "emp-009",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Marketing Specialist", ar: "أخصائي تسويق" },
-    departmentId: "marketing",
-    level: "member",
-    managerId: "emp-005",
-    image: portrait("photo-1438761681033-6461ffad8d80"),
-    description: placeholderBio,
-  },
-  {
-    id: "emp-010",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Software Engineer", ar: "مهندس برمجيات" },
-    departmentId: "technology",
-    level: "member",
-    managerId: "emp-006",
-    image: portrait("photo-1633332755192-727a05c4013d"),
-    description: placeholderBio,
-  },
-  {
-    id: "emp-011",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Operations Coordinator", ar: "منسق عمليات" },
-    departmentId: "logistics",
-    level: "member",
-    managerId: "emp-007",
-    image: portrait("photo-1607990281513-2c110a25bd8c"),
-    description: placeholderBio,
-  },
-  {
-    id: "emp-012",
-    name: { en: "Full Name", ar: "الاسم الكامل" },
-    position: { en: "Accountant", ar: "محاسب" },
-    departmentId: "finance",
-    level: "member",
-    managerId: "emp-003",
-    image: portrait("photo-1472099645785-5658abf4ff4e"),
-    description: placeholderBio,
+    managerId: "emp-001",
+    image: employeeImages.fatimaIbrahim,
+    description: {
+      en: "Oversees legal compliance, administrative operations, policies, and governance to ensure the company operates with clarity and accountability.",
+      ar: "تشرف على الامتثال القانوني والعمليات الإدارية والسياسات والحوكمة لضمان عمل الشركة بوضوح ومسؤولية.",
+    },
+    phone: "+966 579779093",
+    email: "fatima.ibrahim@malazc.com",
   },
 ];
 

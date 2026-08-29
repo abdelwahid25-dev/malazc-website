@@ -165,7 +165,8 @@ export default function Media() {
         </section>
       )}
 
-      {/* Photo gallery */}
+      {/* Photo gallery — enable when company images are available. */}
+      {false && (
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="mb-8">
@@ -218,6 +219,7 @@ export default function Media() {
           )}
         </div>
       </section>
+      )}
 
       <MediaViewer
         items={viewer?.list ?? []}

@@ -9,6 +9,8 @@ import {
   loc,
   type Employee,
 } from "../../data/organization";
+import { EmployeeAvatar } from "./EmployeeCard";
+import { EmployeeImagePreview } from "./EmployeeImagePreview";
 
 interface EmployeeModalProps {
   employee: Employee | null;
@@ -22,6 +24,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
 }) => {
   const { language, t } = useLanguage();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [isImagePreviewOpen, setIsImagePreviewOpen] = React.useState(false);
 
   useEffect(() => {
     if (!employee) return;
@@ -34,6 +37,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      setIsImagePreviewOpen(false);
     };
   }, [employee, onClose]);
 
@@ -76,11 +80,26 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
 
             <div className="bg-gradient-to-br from-secondary/10 via-transparent to-primary/10 px-6 pb-6 pt-8 dark:from-secondary/20 dark:to-primary/15">
               <div className="flex items-center gap-4">
-                <img
-                  src={employee.image}
-                  alt={loc(employee.name, language)}
-                  className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-white shadow-lg dark:ring-slate-900"
-                />
+                {employee.image ? (
+                  <button
+                    type="button"
+                    onClick={() => setIsImagePreviewOpen(true)}
+                    aria-label={`${loc(employee.name, language)}. ${t("orgViewProfile")}`}
+                    className="shrink-0 rounded-full transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                  >
+                    <EmployeeAvatar
+                      employee={employee}
+                      name={loc(employee.name, language)}
+                      large
+                    />
+                  </button>
+                ) : (
+                  <EmployeeAvatar
+                    employee={employee}
+                    name={loc(employee.name, language)}
+                    large
+                  />
+                )}
                 <div className="min-w-0">
                   <h3 className="truncate text-xl font-extrabold text-slate-950 dark:text-white">
                     {loc(employee.name, language)}
@@ -162,6 +181,12 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
                 </div>
               )}
             </div>
+            <EmployeeImagePreview
+              src={isImagePreviewOpen ? employee.image : null}
+              name={loc(employee.name, language)}
+              onClose={() => setIsImagePreviewOpen(false)}
+              keepBodyLocked
+            />
           </motion.div>
         </motion.div>
       )}

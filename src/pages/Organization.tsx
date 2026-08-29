@@ -23,11 +23,8 @@ export default function Organization() {
   const [filter, setFilter] = useState<Filter>("all");
 
   const ceo = useMemo(() => employees.find((e) => e.managerId === null), []);
-  const executives = useMemo(
-    () =>
-      employees.filter(
-        (e) => e.level === "leadership" && e.managerId === ceo?.id,
-      ),
+  const directReports = useMemo(
+    () => employees.filter((e) => e.managerId === ceo?.id),
     [ceo],
   );
 
@@ -86,7 +83,7 @@ export default function Organization() {
                 <EmployeeCard employee={ceo} onSelect={setSelected} emphasized />
               </div>
 
-              {executives.length > 0 && (
+              {directReports.length > 0 && (
                 <>
                   <div className={`h-8 w-px ${connector}`} />
                   <div className="relative flex w-full flex-col items-center gap-6 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8">
@@ -94,9 +91,9 @@ export default function Organization() {
                       aria-hidden="true"
                       className={`pointer-events-none absolute inset-x-[20%] top-0 hidden h-px sm:block ${connector}`}
                     />
-                    {executives.map((exec) => (
+                    {directReports.map((report) => (
                       <div
-                        key={exec.id}
+                        key={report.id}
                         className="relative flex flex-col items-center"
                       >
                         <div
@@ -105,7 +102,7 @@ export default function Organization() {
                         />
                         <div className="w-full max-w-xs sm:w-72">
                           <EmployeeCard
-                            employee={exec}
+                            employee={report}
                             onSelect={setSelected}
                             emphasized
                           />

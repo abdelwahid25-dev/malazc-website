@@ -1,4 +1,5 @@
 import React from "react";
+import { UserRound } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { loc, type Employee } from "../../data/organization";
 
@@ -40,22 +41,45 @@ export const EmployeeCard: React.FC<EmployeeCardProps> = ({
         emphasized ? "sm:w-72" : ""
       }`}
     >
-      <img
-        src={employee.image}
-        alt={name}
-        loading="lazy"
-        className={`h-14 w-14 shrink-0 rounded-full object-cover ring-2 ${ringByLevel[employee.level]}`}
-      />
+      <EmployeeAvatar employee={employee} name={name} />
       <span className="min-w-0 flex-1">
         <span className="block truncate text-base font-extrabold text-slate-950 dark:text-white">
           {name}
         </span>
-        <span
-          className={`block truncate text-sm font-bold ${accentByLevel[employee.level]}`}
-        >
+        <span className={`block truncate text-sm font-bold ${accentByLevel[employee.level]}`}>
           {position}
         </span>
       </span>
     </button>
+  );
+};
+
+export const EmployeeAvatar: React.FC<{
+  employee: Employee;
+  name: string;
+  large?: boolean;
+}> = ({ employee, name, large = false }) => {
+  const size = large ? "h-20 w-20" : "h-14 w-14";
+  const [imageFailed, setImageFailed] = React.useState(false);
+
+  if (!employee.image || imageFailed) {
+    return (
+      <span
+        aria-label={name}
+        className={`flex shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary ring-2 ${size} ${ringByLevel[employee.level]}`}
+      >
+        <UserRound className={large ? "h-8 w-8" : "h-6 w-6"} />
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={employee.image}
+      alt={name}
+      loading="lazy"
+      onError={() => setImageFailed(true)}
+      className={`shrink-0 rounded-full object-cover ring-2 ${size} ${ringByLevel[employee.level]}`}
+    />
   );
 };
