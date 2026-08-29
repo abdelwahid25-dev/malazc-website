@@ -38,7 +38,8 @@ export type DepartmentId =
   | "finance"
   | "legal-administrative"
   | "procurement"
-  | "sales";
+  | "sales"
+  | "technology";
 
 export interface Department {
   id: DepartmentId;
@@ -128,6 +129,15 @@ export const departments: Department[] = [
     },
     icon: Megaphone,
   },
+  {
+    id: "technology",
+    name: { en: "IT Solutions", ar: "حلول تقنية المعلومات" },
+    description: {
+      en: "Technology systems, digital solutions and technical support.",
+      ar: "الأنظمة التقنية والحلول الرقمية والدعم الفني.",
+    },
+    icon: Users,
+  },
 ];
 
 export const employees: Employee[] = [
@@ -135,7 +145,7 @@ export const employees: Employee[] = [
   {
     id: "emp-001",
     name: { en: "Hussam Dafallah", ar: "حسام دفع الله" },
-    position: { en: "Executive Manager", ar: "المدير التنفيذي" },
+    position: { en: "Executive Manager", ar: "الرئيس التنفيذي" },
     departmentId: "executive",
     level: "leadership",
     managerId: null,
@@ -150,7 +160,7 @@ export const employees: Employee[] = [
   {
     id: "emp-002",
     name: { en: "Yahya Shukri", ar: "يحيى شكري" },
-    position: { en: "Sales Manager", ar: "مدير المبيعات" },
+    position: { en: "Sales Supervisor", ar: "مشرف مبيعات" },
     departmentId: "sales",
     level: "head",
     managerId: "emp-001",
@@ -165,7 +175,7 @@ export const employees: Employee[] = [
   {
     id: "emp-003",
     name: { en: "Bashar Mohammed", ar: "بشار محمد" },
-    position: { en: "Procurement Manager", ar: "مدير المشتريات" },
+    position: { en: "Procurement Manager", ar: "مشرف مشتريات" },
     departmentId: "procurement",
     level: "head",
     managerId: "emp-001",
@@ -180,7 +190,7 @@ export const employees: Employee[] = [
   {
     id: "emp-004",
     name: { en: "Abdulhafeez Mohammed Irshad", ar: "عبدالحفيظ محمد إرشاد" },
-    position: { en: "Operations Manager", ar: "مدير التشغيل" },
+    position: { en: "Operation Supervisor", ar: "مسؤول التشغيل" },
     departmentId: "operations",
     level: "head",
     managerId: "emp-001",
@@ -195,7 +205,7 @@ export const employees: Employee[] = [
   {
     id: "emp-005",
     name: { en: "Faris Abu Alama", ar: "فارس ابوعلامة" },
-    position: { en: "Finance Manager", ar: "مدير المالية" },
+    position: { en: "Finance Supervisor", ar: "مشرف المالية" },
     departmentId: "finance",
     level: "head",
     managerId: "emp-001",
@@ -210,7 +220,7 @@ export const employees: Employee[] = [
   {
     id: "emp-006",
     name: { en: "Fatima Ibrahim", ar: "فاطمة إبراهيم" },
-    position: { en: "Legal & Administrative Affairs Manager", ar: "مدير الشؤون القانونية والإدارية" },
+    position: { en: "Legal & Administrative Affairs Manager", ar: "مديرة الشؤون القانونية والإدارية" },
     departmentId: "legal-administrative",
     level: "head",
     managerId: "emp-001",
@@ -221,6 +231,33 @@ export const employees: Employee[] = [
     },
     phone: "+966 579779093",
     email: "fatima.ibrahim@malazc.com",
+  },
+  {
+    id: "emp-007",
+    name: { en: "Ebtisam Al-Nufaii", ar: "ابتسام النفيعي" },
+    position: { en: "Call Center Supervisor", ar: "مشرفة مركز الاتصال" },
+    departmentId: "sales",
+    level: "member",
+    managerId: "emp-002",
+    image: null,
+    description: {
+      en: "Supervises call center operations, supports the customer service team, and helps ensure timely, professional responses to client enquiries.",
+      ar: "تشرف على عمليات مركز الاتصال، وتدعم فريق خدمة العملاء، وتساعد على ضمان الاستجابة المهنية والسريعة لاستفسارات العملاء.",
+    },
+  },
+  {
+    id: "emp-008",
+    name: { en: "Abdulwahid Osman", ar: "عبدالواحد عثمان" },
+    position: { en: "IT Solutions Manager", ar: "مدير حلول تقنية المعلومات" },
+    departmentId: "technology",
+    level: "head",
+    managerId: "emp-001",
+    image: employeeImages.abdelwahidOsman,
+    description: {
+      en: "Leads the planning and delivery of technology solutions, maintains core systems, and ensures reliable technical support for the company and its clients.",
+      ar: "يقود تخطيط وتنفيذ الحلول التقنية، ويحافظ على الأنظمة الأساسية، ويضمن توفير دعم فني موثوق للشركة وعملائها.",
+    },
+    email: "abdelwahid.osman@malazc.com"
   },
 ];
 
