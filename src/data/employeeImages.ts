@@ -10,5 +10,6 @@ export const employeeImages = {
     fatimaIbrahim: null,
     basharMohammed: "https://res.cloudinary.com/pxv0wchd/image/upload/v1788025036/Screenshot_2026-08-29_at_8.33.05_PM.png",
     yahiaShkri: "https://res.cloudinary.com/pxv0wchd/image/upload/v1788025036/Screenshot_2026-08-29_at_8.33.39_PM.png",
+    abdelwahidOsman: "https://res.cloudinary.com/pxv0wchd/image/upload/v1788029589/Screenshot_2026-08-29_at_9.52.33_PM.png",
 
 } as const;
