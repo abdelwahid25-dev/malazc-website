@@ -44,7 +44,7 @@ export default function DivisionPage({
 
         <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
           <div className="mb-7 flex h-14 w-14 items-center justify-center rounded-lg border border-white/16 bg-white/10 text-primary backdrop-blur">
-            {React.cloneElement(icon as React.ReactElement, {
+            {React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
               className: "h-7 w-7",
             })}
           </div>
