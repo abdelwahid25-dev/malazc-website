@@ -73,8 +73,8 @@ export const mediaItems: MediaItem[] = [
     type: "video",
     title: { en: "Company Overview", ar: "نبذة عن الشركة" },
     description: {
-      en: "Placeholder featured video — replace with the company's introduction film.",
-      ar: "فيديو تعريفي مؤقت — استبدله بالفيلم التعريفي للشركة.",
+      en: "Company overview video.",
+      ar: "فيديو تعريفي عن الشركة.",
     },
     thumbnail: "https://img.youtube.com/vi/60NkoxFxNVc/maxresdefault.jpg",
     src: SAMPLE_VIDEO,

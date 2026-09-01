@@ -39,7 +39,8 @@ export type DepartmentId =
   | "legal-administrative"
   | "procurement"
   | "sales"
-  | "technology";
+  | "technology"
+  | "marketing";
 
 export interface Department {
   id: DepartmentId;
@@ -137,6 +138,15 @@ export const departments: Department[] = [
       ar: "الأنظمة التقنية والحلول الرقمية والدعم الفني.",
     },
     icon: Users,
+  },
+  {
+    id: "marketing",
+    name: { en: "Marketing", ar: "التسويق" },
+    description: {
+      en: "Brand promotion, campaigns and market outreach.",
+      ar: "الترويج للعلامة التجارية والحملات والتواصل مع السوق.",
+    },
+    icon: Megaphone,
   },
 ];
 
@@ -258,6 +268,32 @@ export const employees: Employee[] = [
       ar: "يقود تخطيط وتنفيذ الحلول التقنية، ويحافظ على الأنظمة الأساسية، ويضمن توفير دعم فني موثوق للشركة وعملائها.",
     },
     email: "abdelwahid.osman@malazc.com"
+  },
+  {
+    id: "emp-009",
+    name: { en: "Yaser", ar: "ياسر" },
+    position: { en: "Marketing Manager", ar: "مدير التسويق" },
+    departmentId: "marketing",
+    level: "head",
+    managerId: "emp-001",
+    image: null,
+    description: {
+      en: "Leads marketing strategy and brand promotion, and coordinates campaigns to strengthen the company's presence with clients and partners.",
+      ar: "يقود استراتيجية التسويق والترويج للعلامة التجارية، وينسق الحملات لتعزيز حضور الشركة لدى العملاء والشركاء.",
+    },
+  },
+  {
+    id: "emp-010",
+    name: { en: "Hussain", ar: "حسين" },
+    position: { en: "Marketing Specialist", ar: "أخصائي تسويق" },
+    departmentId: "marketing",
+    level: "member",
+    managerId: "emp-009",
+    image: null,
+    description: {
+      en: "Supports marketing campaigns, content and outreach activities to help grow the company's brand and customer engagement.",
+      ar: "يدعم الحملات التسويقية والمحتوى وأنشطة التواصل للمساهمة في نمو العلامة التجارية للشركة وتفاعل العملاء.",
+    },
   },
 ];
 
