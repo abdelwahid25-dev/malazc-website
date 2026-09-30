@@ -180,7 +180,7 @@ export const employees: Employee[] = [
       ar: "يطور علاقات العملاء، ويحدد فرص الأعمال الجديدة، ويقود أنشطة المبيعات لدعم نمو الشركة المستدام.",
     },
     phone: "+966 539995170",
-    email: "yahya.shukri@malazc.com",
+    email: "yahia.shukri@malazc.com",
   },
   {
     id: "emp-003",
@@ -268,6 +268,19 @@ export const employees: Employee[] = [
       ar: "يقود تخطيط وتنفيذ الحلول التقنية، ويحافظ على الأنظمة الأساسية، ويضمن توفير دعم فني موثوق للشركة وعملائها.",
     },
     email: "abdelwahid.osman@malazc.com"
+  },
+  {
+    id: "emp-011",
+    name: { en: "Hassan Ibrahim", ar: "حسن إبراهيم" },
+    position: { en: "Technical IT Support", ar: "فني دعم تقنية المعلومات" },
+    departmentId: "technology",
+    level: "member",
+    managerId: "emp-008",
+    image: null,
+    description: {
+      en: "Provides technical support for company systems, devices, and users.",
+      ar: "يقدم الدعم الفني لأنظمة الشركة وأجهزتها ومستخدميها.",
+    },
   },
   {
     id: "emp-009",
