@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Organization from "./pages/Organization";
 import Media from "./pages/Media";
 import DivisionPage from "./pages/DivisionPage";
+import BusinessCard from "./pages/BusinessCard";
 import { Truck, Laptop, HardHat, TrendingUp } from "lucide-react";
 
 export default function App() {
@@ -22,8 +23,13 @@ export default function App() {
       <LanguageProvider>
         <BrowserRouter>
           <ScrollToTop />
-          <Layout>
-            <Routes>
+          <Routes>
+            <Route path="/business-card/:slug" element={<BusinessCard />} />
+            <Route
+              path="*"
+              element={
+                <Layout>
+                  <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route
@@ -69,8 +75,11 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/organization" element={<Organization />} />
               <Route path="/media" element={<Media />} />
-            </Routes>
-          </Layout>
+                  </Routes>
+                </Layout>
+              }
+            />
+          </Routes>
         </BrowserRouter>
       </LanguageProvider>
     </ThemeProvider>

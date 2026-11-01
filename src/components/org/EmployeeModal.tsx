@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { Mail, Phone, Linkedin, X, Building2, GitBranch } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Mail, Phone, Linkedin, X, Building2, GitBranch, IdCard } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import {
   departments,
@@ -144,6 +145,18 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
                 <p className="text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">
                   {loc(employee.description, language)}
                 </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-1">
+                <Link
+                  to={`/business-card/${employee.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-primary-hover"
+                >
+                  <IdCard className="h-4 w-4" />
+                  {t("cardViewCard")}
+                </Link>
               </div>
 
               {(employee.email || employee.phone || employee.linkedin) && (

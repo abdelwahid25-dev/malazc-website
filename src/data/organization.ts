@@ -54,6 +54,8 @@ export type OrgLevel = "leadership" | "head" | "member";
 
 export interface Employee {
   id: string;
+  /** URL-safe, permanent identifier used for the business card link (/business-card/:slug). */
+  slug: string;
   name: Localized;
   position: Localized;
   departmentId: DepartmentId;
@@ -154,6 +156,7 @@ export const employees: Employee[] = [
   // Department structure transcribed from the supplied Logistics Services chart.
   {
     id: "emp-001",
+    slug: "hussam",
     name: { en: "Hussam Dafallah", ar: "حسام دفع الله" },
     position: { en: "Executive Manager", ar: "الرئيس التنفيذي" },
     departmentId: "executive",
@@ -169,6 +172,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-002",
+    slug: "yahya",
     name: { en: "Yahya Shukri", ar: "يحيى شكري" },
     position: { en: "Sales Supervisor", ar: "مشرف مبيعات" },
     departmentId: "sales",
@@ -184,6 +188,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-003",
+    slug: "bashar",
     name: { en: "Bashar Mohammed", ar: "بشار محمد" },
     position: { en: "Procurement Manager", ar: "مشرف مشتريات" },
     departmentId: "procurement",
@@ -199,6 +204,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-004",
+    slug: "abdulhafeez",
     name: { en: "Abdulhafeez Mohammed Irshad", ar: "عبدالحفيظ محمد إرشاد" },
     position: { en: "Operation Supervisor", ar: "مسؤول التشغيل" },
     departmentId: "operations",
@@ -214,6 +220,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-005",
+    slug: "faris",
     name: { en: "Faris Abu Alama", ar: "فارس ابوعلامة" },
     position: { en: "Finance Supervisor", ar: "مشرف المالية" },
     departmentId: "finance",
@@ -229,6 +236,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-006",
+    slug: "fatima",
     name: { en: "Fatima Ibrahim", ar: "فاطمة إبراهيم" },
     position: { en: "Legal & Administrative Affairs Manager", ar: "مديرة الشؤون القانونية والإدارية" },
     departmentId: "legal-administrative",
@@ -244,6 +252,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-007",
+    slug: "ebtisam",
     name: { en: "Ebtisam Al-Nufaii", ar: "ابتسام النفيعي" },
     position: { en: "Call Center Supervisor", ar: "مشرفة مركز الاتصال" },
     departmentId: "sales",
@@ -257,6 +266,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-008",
+    slug: "abdelwahid",
     name: { en: "Abdulwahid Osman", ar: "عبدالواحد عثمان" },
     position: { en: "IT Solutions Manager", ar: "مدير حلول تقنية المعلومات" },
     departmentId: "technology",
@@ -271,6 +281,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-011",
+    slug: "hassan",
     name: { en: "Hassan Ibrahim", ar: "حسن إبراهيم" },
     position: { en: "Technical IT Support", ar: "فني دعم تقنية المعلومات" },
     departmentId: "technology",
@@ -284,6 +295,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-009",
+    slug: "yaser",
     name: { en: "Yaser", ar: "ياسر" },
     position: { en: "Marketing Manager", ar: "مدير التسويق" },
     departmentId: "marketing",
@@ -297,6 +309,7 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-010",
+    slug: "hussain",
     name: { en: "Hussain", ar: "حسين" },
     position: { en: "Marketing Specialist", ar: "أخصائي تسويق" },
     departmentId: "marketing",
@@ -313,6 +326,10 @@ export const employees: Employee[] = [
 /** Look up a single employee by id. */
 export const getEmployee = (id: string | null): Employee | undefined =>
   id ? employees.find((e) => e.id === id) : undefined;
+
+/** Look up a single employee by business card slug. */
+export const getEmployeeBySlug = (slug: string | undefined): Employee | undefined =>
+  slug ? employees.find((e) => e.slug === slug.toLowerCase()) : undefined;
 
 /** Employees belonging to a department. */
 export const employeesByDepartment = (departmentId: DepartmentId): Employee[] =>

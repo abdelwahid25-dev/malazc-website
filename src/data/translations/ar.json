@@ -135,5 +135,18 @@
   "mediaClose": "إغلاق",
   "mediaPrev": "السابق",
   "mediaNext": "التالي",
-  "mediaEmpty": "لا توجد وسائط في هذه الفئة بعد."
+  "mediaEmpty": "لا توجد وسائط في هذه الفئة بعد.",
+  "cardSaveContact": "حفظ جهة الاتصال",
+  "cardCall": "اتصال",
+  "cardWhatsapp": "واتساب",
+  "cardEmail": "البريد",
+  "cardWebsite": "الموقع",
+  "cardCopyLink": "نسخ الرابط",
+  "cardLinkCopied": "تم نسخ الرابط",
+  "cardNotFoundTitle": "بطاقة الأعمال غير موجودة",
+  "cardNotFoundDesc": "رابط بطاقة الأعمال هذا غير صالح.",
+  "cardBackHome": "الذهاب إلى الموقع",
+  "cardViewCard": "بطاقة الأعمال",
+  "cardVisitWebsite": "زيارة موقعنا",
+  "cardSaveImage": "حفظ كصورة"
 }
