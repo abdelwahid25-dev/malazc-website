@@ -135,5 +135,18 @@
   "mediaClose": "Close",
   "mediaPrev": "Previous",
   "mediaNext": "Next",
-  "mediaEmpty": "No media in this category yet."
+  "mediaEmpty": "No media in this category yet.",
+  "cardSaveContact": "Save Contact",
+  "cardCall": "Call",
+  "cardWhatsapp": "WhatsApp",
+  "cardEmail": "Email",
+  "cardWebsite": "Website",
+  "cardCopyLink": "Copy link",
+  "cardLinkCopied": "Link copied",
+  "cardNotFoundTitle": "Business card not found",
+  "cardNotFoundDesc": "This business card link is not valid.",
+  "cardBackHome": "Go to website",
+  "cardViewCard": "Business card",
+  "cardVisitWebsite": "Visit our website",
+  "cardSaveImage": "Save as Image"
 }

@@ -14,25 +14,33 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 const isLanguage = (value: string | null): value is Language =>
   value === "en" || value === "ar";
 
+/** Saved choice wins; otherwise follow the device/browser language (Arabic -> ar, anything else -> en). */
+const getInitialLanguage = (): Language => {
+  try {
+    const saved = localStorage.getItem("malazc_lang");
+    if (isLanguage(saved)) return saved;
+  } catch {
+    // Storage can be unavailable (private mode); fall back to the device language.
+  }
+  const deviceLanguages = navigator.languages?.length
+    ? navigator.languages
+    : [navigator.language];
+  const primary = deviceLanguages[0]?.toLowerCase() ?? "en";
+  return primary.startsWith("ar") ? "ar" : "en";
+};
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguageState] = useState<Language>("en");
-
-  // Initialize lang and dir on mount
-  useEffect(() => {
-    // Check if user has a preference in localStorage or default to 'ar' maybe? Let's default to 'ar' since it's a Saudi company
-    const savedLang = localStorage.getItem("malazc_lang");
-    if (isLanguage(savedLang)) {
-      setLanguageState(savedLang);
-    } else {
-      setLanguageState("ar");
-    }
-  }, []);
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("malazc_lang", lang);
+    try {
+      localStorage.setItem("malazc_lang", lang);
+    } catch {
+      // Ignore storage errors; the choice still applies for this session.
+    }
   };
 
   // Sync lang changes to HTML element
