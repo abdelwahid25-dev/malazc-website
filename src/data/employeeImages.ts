@@ -14,3 +14,8 @@ export const employeeImages = {
     hassanIbrahim: null,
 
 } as const;
+
+export const defaultEmployeeImages = {
+  male: "/employee-avatar-male.png",
+  female: "/employee-avatar.png",
+} as const;
