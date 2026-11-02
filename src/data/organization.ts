@@ -268,6 +268,7 @@ export const employees: Employee[] = [
     level: "member",
     managerId: "emp-002",
     image: null,
+    email: "ebtisam.alnufaii@malazc.com",
     description: {
       en: "Supervises call center operations, supports the customer service team, and helps ensure timely, professional responses to client enquiries.",
       ar: "تشرف على عمليات مركز الاتصال، وتدعم فريق خدمة العملاء، وتساعد على ضمان الاستجابة المهنية والسريعة لاستفسارات العملاء.",
