@@ -307,17 +307,17 @@ export const employees: Employee[] = [
   },
   {
     id: "emp-009",
-    slug: "yaser",
+    slug: "yaser-mohamed",
     avatarGender: "male",
-    name: { en: "Yaser", ar: "ياسر" },
-    position: { en: "Marketing Manager", ar: "مدير التسويق" },
+    name: { en: "Yaser Mohamed", ar: "ياسر محمد" },
+    position: { en: "Marketing Manager", ar: "مسؤول قسم التسويق" },
     departmentId: "marketing",
     level: "head",
     managerId: "emp-001",
     image: null,
     description: {
       en: "Leads marketing strategy and brand promotion, and coordinates campaigns to strengthen the company's presence with clients and partners.",
-      ar: "يقود استراتيجية التسويق والترويج للعلامة التجارية، وينسق الحملات لتعزيز حضور الشركة لدى العملاء والشركاء.",
+      ar: "يتولى إدارة وتخطيط وتنفيذ الاستراتيجيات والحملات التسويقية لتعزيز الهوية التجارية وزيادة المبيعات وإدارة فريق التسويق وتوزيع المهام والإشراف على المحتوى والإعلانات وتحليل الأداء وإعداد التقارير واستقطاب العملاء لتحقيق أهداف الشركة.",
     },
   },
   {
