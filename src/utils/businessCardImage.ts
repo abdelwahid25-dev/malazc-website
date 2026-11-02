@@ -1,3 +1,7 @@
+import { employeeInitials } from "./employeeInitials";
+import { defaultEmployeeImages } from "../data/employeeImages";
+import type { AvatarGender } from "../data/organization";
+
 export interface BusinessCardImageData {
   name: string;
   position: string;
@@ -10,6 +14,7 @@ export interface BusinessCardImageData {
   companyName: string;
   companyNameAlt: string;
   imageUrl?: string | null;
+  avatarGender: AvatarGender;
   language: "en" | "ar";
   isDark: boolean;
 }
@@ -118,7 +123,9 @@ export const renderBusinessCardImage = async (
     [400, 600, 700, 800].map((w) => document.fonts.load(`${w} 32px ${family}`)),
   ).catch(() => undefined);
 
-  const photo = data.imageUrl ? await loadImage(data.imageUrl) : null;
+  const photo =
+    (data.imageUrl ? await loadImage(data.imageUrl) : null) ??
+    (await loadImage(defaultEmployeeImages[data.avatarGender]));
 
   const colors = data.isDark
     ? { bg: "#0f172a", title: "#ffffff", body: "#cbd5e1", muted: "#94a3b8", line: "#1e293b" }
@@ -224,15 +231,30 @@ export const renderBusinessCardImage = async (
       AVATAR_R * 2,
     );
   } else {
-    ctx.fillStyle = "rgba(0,166,81,0.12)";
+    const avatarGradient = ctx.createLinearGradient(
+      cx - AVATAR_R,
+      avatarCy - AVATAR_R,
+      cx + AVATAR_R,
+      avatarCy + AVATAR_R,
+    );
+    avatarGradient.addColorStop(0, "#1e3a8a");
+    avatarGradient.addColorStop(0.55, "#00a651");
+    avatarGradient.addColorStop(1, "#059669");
+    ctx.fillStyle = avatarGradient;
     ctx.fillRect(cx - AVATAR_R, avatarCy - AVATAR_R, AVATAR_R * 2, AVATAR_R * 2);
-    ctx.fillStyle = "#00a651";
+    ctx.fillStyle = "rgba(255,255,255,0.1)";
     ctx.beginPath();
-    ctx.arc(cx, avatarCy - 20, 44, 0, Math.PI * 2);
+    ctx.arc(cx + 82, avatarCy - 88, 104, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(cx, avatarCy + 110, 80, Math.PI, 0);
+    ctx.arc(cx - 96, avatarCy + 100, 72, 0, Math.PI * 2);
     ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = font(800, 96);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(employeeInitials(data.name), cx, avatarCy);
+    ctx.textBaseline = "alphabetic";
   }
   ctx.restore();
 

@@ -51,11 +51,13 @@ export interface Department {
 
 /** Visual rank — controls subtle emphasis in the chart, not the data hierarchy. */
 export type OrgLevel = "leadership" | "head" | "member";
+export type AvatarGender = "male" | "female";
 
 export interface Employee {
   id: string;
   /** URL-safe, permanent identifier used for the business card link (/business-card/:slug). */
   slug: string;
+  avatarGender: AvatarGender;
   name: Localized;
   position: Localized;
   departmentId: DepartmentId;
@@ -157,6 +159,7 @@ export const employees: Employee[] = [
   {
     id: "emp-001",
     slug: "hussam",
+    avatarGender: "male",
     name: { en: "Hussam Dafallah", ar: "حسام دفع الله" },
     position: { en: "Executive Manager", ar: "الرئيس التنفيذي" },
     departmentId: "executive",
@@ -173,6 +176,7 @@ export const employees: Employee[] = [
   {
     id: "emp-002",
     slug: "yahya",
+    avatarGender: "male",
     name: { en: "Yahya Shukri", ar: "يحيى شكري" },
     position: { en: "Sales Supervisor", ar: "مشرف مبيعات" },
     departmentId: "sales",
@@ -189,6 +193,7 @@ export const employees: Employee[] = [
   {
     id: "emp-003",
     slug: "bashar",
+    avatarGender: "male",
     name: { en: "Bashar Mohammed", ar: "بشار محمد" },
     position: { en: "Procurement Manager", ar: "مشرف مشتريات" },
     departmentId: "procurement",
@@ -205,6 +210,7 @@ export const employees: Employee[] = [
   {
     id: "emp-004",
     slug: "abdulhafeez",
+    avatarGender: "male",
     name: { en: "Abdulhafeez Mohammed Irshad", ar: "عبدالحفيظ محمد إرشاد" },
     position: { en: "Operation Supervisor", ar: "مسؤول التشغيل" },
     departmentId: "operations",
@@ -221,6 +227,7 @@ export const employees: Employee[] = [
   {
     id: "emp-005",
     slug: "faris",
+    avatarGender: "male",
     name: { en: "Faris Abu Alama", ar: "فارس ابوعلامة" },
     position: { en: "Finance Supervisor", ar: "مشرف المالية" },
     departmentId: "finance",
@@ -237,6 +244,7 @@ export const employees: Employee[] = [
   {
     id: "emp-006",
     slug: "fatima",
+    avatarGender: "female",
     name: { en: "Fatima Ibrahim", ar: "فاطمة إبراهيم" },
     position: { en: "Legal & Administrative Affairs Manager", ar: "مديرة الشؤون القانونية والإدارية" },
     departmentId: "legal-administrative",
@@ -253,6 +261,7 @@ export const employees: Employee[] = [
   {
     id: "emp-007",
     slug: "ebtisam",
+    avatarGender: "female",
     name: { en: "Ebtisam Al-Nufaii", ar: "ابتسام النفيعي" },
     position: { en: "Call Center Supervisor", ar: "مشرفة مركز الاتصال" },
     departmentId: "sales",
@@ -267,6 +276,7 @@ export const employees: Employee[] = [
   {
     id: "emp-008",
     slug: "abdelwahid",
+    avatarGender: "male",
     name: { en: "Abdulwahid Osman", ar: "عبدالواحد عثمان" },
     position: { en: "IT Solutions Manager", ar: "مدير حلول تقنية المعلومات" },
     departmentId: "technology",
@@ -282,6 +292,7 @@ export const employees: Employee[] = [
   {
     id: "emp-011",
     slug: "hassan",
+    avatarGender: "male",
     name: { en: "Hassan Ibrahim", ar: "حسن إبراهيم" },
     position: { en: "Technical IT Support", ar: "فني دعم تقنية المعلومات" },
     departmentId: "technology",
@@ -296,6 +307,7 @@ export const employees: Employee[] = [
   {
     id: "emp-009",
     slug: "yaser",
+    avatarGender: "male",
     name: { en: "Yaser", ar: "ياسر" },
     position: { en: "Marketing Manager", ar: "مدير التسويق" },
     departmentId: "marketing",
@@ -310,6 +322,7 @@ export const employees: Employee[] = [
   {
     id: "emp-010",
     slug: "hussain",
+    avatarGender: "male",
     name: { en: "Hussain", ar: "حسين" },
     position: { en: "Marketing Specialist", ar: "أخصائي تسويق" },
     departmentId: "marketing",

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { Link } from "react-router-dom";
 import { Mail, Phone, Linkedin, X, Building2, GitBranch, IdCard } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import {
@@ -12,6 +11,7 @@ import {
 } from "../../data/organization";
 import { EmployeeAvatar } from "./EmployeeCard";
 import { EmployeeImagePreview } from "./EmployeeImagePreview";
+import { BusinessCardModal } from "./BusinessCardModal";
 
 interface EmployeeModalProps {
   employee: Employee | null;
@@ -26,6 +26,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
   const { language, t } = useLanguage();
   const closeRef = useRef<HTMLButtonElement>(null);
   const [isImagePreviewOpen, setIsImagePreviewOpen] = React.useState(false);
+  const [isCardOpen, setIsCardOpen] = React.useState(false);
 
   useEffect(() => {
     if (!employee) return;
@@ -39,6 +40,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
       setIsImagePreviewOpen(false);
+      setIsCardOpen(false);
     };
   }, [employee, onClose]);
 
@@ -148,15 +150,14 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
               </div>
 
               <div className="flex flex-wrap gap-2 pt-1">
-                <Link
-                  to={`/business-card/${employee.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => setIsCardOpen(true)}
                   className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-primary-hover"
                 >
                   <IdCard className="h-4 w-4" />
                   {t("cardViewCard")}
-                </Link>
+                </button>
               </div>
 
               {(employee.email || employee.phone || employee.linkedin) && (
@@ -194,6 +195,10 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
                 </div>
               )}
             </div>
+            <BusinessCardModal
+              employee={isCardOpen ? employee : null}
+              onClose={() => setIsCardOpen(false)}
+            />
             <EmployeeImagePreview
               src={isImagePreviewOpen ? employee.image : null}
               name={loc(employee.name, language)}

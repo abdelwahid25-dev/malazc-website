@@ -1,7 +1,8 @@
 import React from "react";
-import { UserRound } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
+import { defaultEmployeeImages } from "../../data/employeeImages";
 import { loc, type Employee } from "../../data/organization";
+import { employeeInitials } from "../../utils/employeeInitials";
 
 interface EmployeeCardProps {
   employee: Employee;
@@ -61,14 +62,32 @@ export const EmployeeAvatar: React.FC<{
 }> = ({ employee, name, large = false }) => {
   const size = large ? "h-20 w-20" : "h-14 w-14";
   const [imageFailed, setImageFailed] = React.useState(false);
+  const [fallbackFailed, setFallbackFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    setImageFailed(false);
+    setFallbackFailed(false);
+  }, [employee.id]);
 
   if (!employee.image || imageFailed) {
+    if (!fallbackFailed) {
+      return (
+        <img
+          src={defaultEmployeeImages[employee.avatarGender]}
+          alt={name}
+          onError={() => setFallbackFailed(true)}
+          className={`shrink-0 rounded-full object-cover ring-2 ${size} ${ringByLevel[employee.level]}`}
+        />
+      );
+    }
+
     return (
       <span
+        role="img"
         aria-label={name}
-        className={`flex shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary ring-2 ${size} ${ringByLevel[employee.level]}`}
+        className={`flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-secondary via-primary to-emerald-500 font-extrabold tracking-wide text-white shadow-inner ring-2 ${size} ${large ? "text-3xl" : "text-xl"} ${ringByLevel[employee.level]}`}
       >
-        <UserRound className={large ? "h-8 w-8" : "h-6 w-6"} />
+        {employeeInitials(name)}
       </span>
     );
   }
